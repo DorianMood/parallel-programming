@@ -3,26 +3,30 @@
 #include <vector>
 #include <algorithm>
 
-void ShellSorter::sort(uint64_t* array, int array_size) 
+void ShellSorter::sort(uint64_t *array, int array_size)
 {
   std::vector<uint64_t> vec;
-  for( int i=0;i<array_size;i++) {
+  for (int i = 0; i < array_size; i++)
+  {
     vec.push_back(array[i]);
   }
   std::sort(vec.begin(), vec.end());
-  for( int i=0;i<array_size;i++) {
+  for (int i = 0; i < array_size; i++)
+  {
     array[i] = vec[i];
-  } 
+  }
 }
 
-void ParallelShellSorter::sort(uint64_t* array, int array_size) 
+void ParallelShellSorter::sort(uint64_t *array, int array_size)
 {
   std::vector<uint64_t> vec;
-  for( int i=0;i<array_size;i++) {
+  for (int i = 0; i < array_size; i++)
+  {
     vec.push_back(array[i]);
   }
   std::sort(vec.begin(), vec.end());
-  for( int i=0;i<array_size;i++) {
+  for (int i = 0; i < array_size; i++)
+  {
     array[i] = vec[i];
   }
 }
