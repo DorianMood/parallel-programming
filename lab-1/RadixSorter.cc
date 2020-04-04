@@ -5,6 +5,8 @@
 
 void RadixSorter::sort(uint64_t *array, int array_size)
 {
+	// find MAX
+	//
   std::vector<uint64_t> vec;
   for (int i = 0; i < array_size; i++)
   {
