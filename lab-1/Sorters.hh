@@ -9,96 +9,96 @@ class Sorter;
 class SorterArgs
 {
 public:
-  SorterArgs(Sorter *s)
-      : m_this(s)
-  {
-  }
+    SorterArgs(Sorter *s)
+        : m_this(s)
+    {
+    }
 
-  Sorter *m_this;
+    Sorter *m_this;
 };
 
 class Sorter
 {
 public:
-  virtual void sort(uint64_t *array, int array_size) {}
+    virtual void sort(uint64_t *array, int array_size) {}
 
 protected:
-  virtual void *thread_body(void *args) {}
+    virtual void *thread_body(void *args) {}
 
-  static void *thread_create_helper(void *args)
-  {
-    SorterArgs *a = (SorterArgs *)args;
-    return a->m_this->thread_body(args);
-  }
+    static void *thread_create_helper(void *args)
+    {
+        SorterArgs *a = (SorterArgs *)args;
+        return a->m_this->thread_body(args);
+    }
 };
 
 class ShellSorter : public Sorter
 {
 public:
-  ShellSorter() {}
+    ShellSorter() {}
 
-  void sort(uint64_t *array, int array_size);
+    void sort(uint64_t *array, int array_size);
 };
 
 class ParallelShellSorter : public Sorter
 {
 public:
-  ParallelShellSorter(int nthreads)
-  {
-    m_nthreads = nthreads;
-  }
-  void sort(uint64_t *array, int array_size);
+    ParallelShellSorter(int nthreads)
+    {
+        m_nthreads = nthreads;
+    }
+    void sort(uint64_t *array, int array_size);
 
 private:
-  void *thread_body(void *arg) {}
+    void *thread_body(void *arg);
 
 private:
-  int m_nthreads;
+    int m_nthreads;
 };
 
 class ParallelShellSorterArgs : public SorterArgs
 {
 public:
-  ParallelShellSorterArgs(ParallelShellSorter *s, int _tid)
-      : SorterArgs(s), tid(_tid)
-  {
-  }
+    ParallelShellSorterArgs(ParallelShellSorter *s, int _tid)
+        : SorterArgs(s), tid(_tid)
+    {
+    }
 
-  int tid;
+    int tid;
 };
 
 class RadixSorter : public Sorter
 {
 public:
-  RadixSorter() {}
-  void sort(uint64_t *array, int array_size);
+    RadixSorter() {}
+    void sort(uint64_t *array, int array_size);
 };
 
 class ParallelRadixSorter : public Sorter
 {
 public:
-  ParallelRadixSorter(int nthreads)
-      : m_nthreads(nthreads)
-  {
-  }
-  void sort(uint64_t *array, int array_size);
+    ParallelRadixSorter(int nthreads)
+        : m_nthreads(nthreads)
+    {
+    }
+    void sort(uint64_t *array, int array_size);
 
 private:
-  void *thread_body(void *arg) {}
+    void *thread_body(void *arg) {}
 
 private:
-  int m_nthreads;
+    int m_nthreads;
 };
 
 class ParallelRadixSorterArgs : public SorterArgs
 {
 public:
-  ParallelRadixSorterArgs(ParallelRadixSorter *s, int _tid)
-      : SorterArgs(s), tid(_tid)
-  {
-  }
+    ParallelRadixSorterArgs(ParallelRadixSorter *s, int _tid)
+        : SorterArgs(s), tid(_tid)
+    {
+    }
 
-  int tid;
+    int tid;
 };
 
 #endif
