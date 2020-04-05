@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 #include <cstdio>
 
@@ -36,7 +37,7 @@ void ParallelShellSorter::sort(uint64_t *array, int array_size)
             // Clean up threads
             if (thread_counter >= this->m_nthreads)
             {
-                printf("FREE");
+                std::cout << "FREE" << std::endl;
                 for (int t_id = 0; t_id < this->m_nthreads; t_id++)
                     pthread_join(thread_handlers[t_id], NULL);
                 thread_counter = 0;
@@ -61,5 +62,6 @@ void ParallelShellSorter::sort(uint64_t *array, int array_size)
 
 void *ParallelShellSorter::thread_body(void *arg)
 {
-    printf("%d", ((ParallelShellSorterArgs *)arg)->tid);
+    std::cout << "Thread ID : " << ((ParallelShellSorterArgs *)arg)->tid << std::endl;
+    return NULL;
 }
