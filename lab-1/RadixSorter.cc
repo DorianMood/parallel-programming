@@ -71,14 +71,14 @@ void ParallelRadixSorter::sort(uint64_t *array, int array_size)
     for (int tid = 0; tid < m_nthreads; tid++)
         pthread_join(threads[tid], NULL);
 }
-}
 
 void *ParallelRadixSorter::thread_body(void *arg)
 {
     return NULL;
     // TODO : implement following logic in parallel.
     int tid = ((ParallelRadixSorterArgs *)arg)->tid;
-
+    uint64_t m = getMax(*array, array_size);
+    
     for (uint64_t exp = 1; m / exp > 0; exp *= 10)
     {
         uint64_t output[array_size];
