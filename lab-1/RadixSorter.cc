@@ -20,7 +20,7 @@ void countSort(uint64_t *array, int array_size, uint64_t exp)
     int i;
     uint64_t count[10] = {0};
 
-//printf("%jd", exp);
+    //printf("%jd", exp);
 
     for (i = 0; i < array_size; i++)
         count[(array[i] / exp) % 10]++;
@@ -41,12 +41,12 @@ void countSort(uint64_t *array, int array_size, uint64_t exp)
 void RadixSorter::sort(uint64_t *array, int array_size)
 {
     uint64_t m = getMax(array, array_size);
-   //printf("%lu\n", m);
-   //uint64_t result = m / 10;
-	//printf("%lu\t", result);
+    //printf("%lu\n", m);
+    //uint64_t result = m / 10;
+    //printf("%lu\t", result);
     for (uint64_t exp = 1; m / exp > 0; exp *= 10)
     {
-	//printf("%lu\t", m / exp);
+        //printf("%lu\t", m / exp);
         countSort(array, array_size, exp);
     }
 }
@@ -54,8 +54,7 @@ void RadixSorter::sort(uint64_t *array, int array_size)
 void ParallelRadixSorter::sort(uint64_t *array, int array_size)
 {
     uint64_t m = getMax(array, array_size);
-    
+
     for (uint64_t exp = 1; m / exp > 0; exp *= 10)
         countSort(array, array_size, exp);
 }
-
