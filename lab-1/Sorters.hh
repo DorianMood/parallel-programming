@@ -110,7 +110,7 @@ public:
         this->array_size = array_size;
     }
 private:
-    void *thread_body(void *arg) {}
+    void *thread_body(void *arg);
 
 private:
     int m_nthreads;
