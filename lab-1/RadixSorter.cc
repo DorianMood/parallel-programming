@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <cstdio>
 
 uint64_t getMax(const uint64_t *array, const int array_size)
 {
@@ -17,6 +18,8 @@ void countSort(uint64_t *array, int array_size, uint64_t exp)
     uint64_t output[array_size];
     int i;
     uint64_t count[10] = {0};
+
+    printf("%jd", exp);
 
     for (i = 0; i < array_size; i++)
         count[(array[i] / exp) % 10]++;
