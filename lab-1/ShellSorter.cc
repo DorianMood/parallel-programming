@@ -29,11 +29,23 @@ void ParallelShellSorter::sort(uint64_t *array, int array_size)
     pthread_t *threads;
     threads = (pthread_t *)malloc(m_nthreads * sizeof(pthread_t));
 
+    // for (int tid = 0; tid < m_nthreads; tid++)
+    //     pthread_create(
+    //         &threads[tid],
+    //         NULL,
+    //         &thread_create_helper,
+    //         new ParallelShellSorterArgs(this, tid)
+    //     );
+    
+    // for (int tid = 0; tid < m_nthreads; tid++)
+    //     pthread_join(threads[tid], NULL);
+    
+
     for (int gap = array_size / 2; gap > 0; gap /= 2)
     {
         this->gap = gap;
         gap_offset_i = 0;
-
+        printf("Gap : %d\n", gap);
         // Create threads
         for (int tid = 0; tid < m_nthreads; tid++)
             pthread_create(
@@ -58,13 +70,17 @@ void *ParallelShellSorter::thread_body(void *arg)
     while (true)
     {
         pthread_mutex_lock(&gap_cycle_lock);
+        
+        printf("%d thread.", tid);
         if (gap_offset_i < (array_size - 1))
             gap_offset_i++;
         else
         {
+        printf("%d thread inside else.", tid);
             pthread_mutex_unlock(&gap_cycle_lock);
             break;
         }
+        printf("%d :: Gap offset : %d\n", tid, gap_offset_i);
         i = gap_offset_i;
         pthread_mutex_unlock(&gap_cycle_lock);
 

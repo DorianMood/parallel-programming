@@ -73,6 +73,8 @@ private:
     int gap_offset_i = 0;
     // Current gap
     int gap;
+    // Barrier for synchronization
+    pthread_barrier_t barrier;
 };
 
 class ParallelShellSorterArgs : public SorterArgs
