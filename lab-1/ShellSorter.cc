@@ -68,15 +68,20 @@ void *ParallelShellSorter::thread_body(void *arg)
     ParallelShellSorterArgs *args = (ParallelShellSorterArgs *)arg;
 
     int tid = args->tid;
-    int gap, j;
+    int gap, j, step;
 
     gap = this->gap;
 
-    printf("GAP : %d\tTID : %d\n", gap, tid);
+    if (tid > gap)
+        return NULL;
 
-    for (int i = gap + tid; i < array_size; i += m_nthreads)
+    step = gap > m_nthreads ? m_nthreads : gap;
+
+    //printf("GAP : %d\tTID : %d\n", gap, tid);
+
+    for (int i = gap + tid; i < array_size; i += step)
     {
-        printf("i counter = %d", i);
+        //printf("i counter = %d\n", i);
         uint64_t temp = (*array)[i];
         for (j = i; j >= gap && (*array)[j - gap] > temp; j -= gap)
             (*array)[j] = (*array)[j - gap];
