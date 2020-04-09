@@ -77,38 +77,13 @@ void *ParallelShellSorter::thread_body(void *arg)
 
     step = gap > m_nthreads ? m_nthreads : gap;
 
-    //printf("GAP : %d\tTID : %d\n", gap, tid);
-
     for (int i = gap + tid; i < array_size; i += step)
     {
-        //printf("i counter = %d\n", i);
         uint64_t temp = (*array)[i];
         for (j = i; j >= gap && (*array)[j - gap] > temp; j -= gap)
             (*array)[j] = (*array)[j - gap];
         (*array)[j] = temp;
     }
-
-    // while (true)
-    // {
-    //     pthread_mutex_lock(&gap_cycle_lock);
-
-    //     //printf("%d thread.", tid);
-    //     if (gap_offset_i < (array_size - 1))
-    //         gap_offset_i++;
-    //     else
-    //     {
-    //         //printf("%d thread inside else.", tid);
-    //         pthread_mutex_unlock(&gap_cycle_lock);
-    //         break;
-    //     }
-    //     //printf("%d :: Gap offset : %d\n", tid, gap_offset_i);
-    //     i = gap_offset_i;
-    //     pthread_mutex_unlock(&gap_cycle_lock);
-
-    //     uint64_t temp = (*array)[i];
-    //     for (j = i; j >= gap && (*array)[j - gap] > temp; j -= gap)
-    //         (*array)[j] = (*array)[j - gap];
-    //     (*array)[j] = temp;
-    // }
+    
     return NULL;
 }
