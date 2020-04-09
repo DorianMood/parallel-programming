@@ -61,12 +61,15 @@ void ParallelRadixSorter::sort(uint64_t *array, int array_size)
 
     // Create threads
     for (int tid = 0; tid < m_nthreads; tid++)
-        pthread_create(
+    {
+        int thread_error = pthread_create(
             &threads[tid],
             NULL,
             &(thread_create_helper),
             new ParallelRadixSorterArgs(this, tid));
-
+        if (thread_error)
+            printf("ERROR CREATING THREAD\n");
+    }
     // Clean up threads
     for (int tid = 0; tid < m_nthreads; tid++)
         pthread_join(threads[tid], NULL);
