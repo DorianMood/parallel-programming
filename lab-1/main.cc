@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
     {
         if (array[i - 1] > array[i])
         {
-            printf("%d : %jd\t%d : %jd", i - 1, array[i - 1], i, array[i]);
+            printf("%d : %jd\t%d : %jd\n", i - 1, array[i - 1], i, array[i]);
             fprintf(stderr, "ERROR: Sort failed\n");
             return 1;
         }
