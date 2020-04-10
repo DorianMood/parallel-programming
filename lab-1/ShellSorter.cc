@@ -29,22 +29,9 @@ void ParallelShellSorter::sort(uint64_t *array, int array_size)
     pthread_t *threads;
     threads = (pthread_t *)malloc(m_nthreads * sizeof(pthread_t));
 
-    // for (int tid = 0; tid < m_nthreads; tid++)
-    //     pthread_create(
-    //         &threads[tid],
-    //         NULL,
-    //         &thread_create_helper,
-    //         new ParallelShellSorterArgs(this, tid)
-    //     );
-
-    // for (int tid = 0; tid < m_nthreads; tid++)
-    //     pthread_join(threads[tid], NULL);
-
     for (int gap = array_size / 2; gap > 0; gap /= 2)
     {
         this->gap = gap;
-        gap_offset_i = 0;
-        //printf("Gap : %d\n", gap);
         // Create threads
         for (int tid = 0; tid < m_nthreads; tid++)
         {
@@ -53,8 +40,6 @@ void ParallelShellSorter::sort(uint64_t *array, int array_size)
                 NULL,
                 &(thread_create_helper),
                 new ParallelShellSorterArgs(this, tid));
-            if (thread_error)
-                printf("ERROR CREATING THREAD\n");
         }
         // Clean up threads
         for (int tid = 0; tid < m_nthreads; tid++)
@@ -72,7 +57,7 @@ void *ParallelShellSorter::thread_body(void *arg)
 
     gap = this->gap;
 
-    if (tid > gap)
+    if (tid >= gap)
         return NULL;
 
     step = gap > m_nthreads ? m_nthreads : gap;
