@@ -69,12 +69,8 @@ private:
     int array_size;
     // Mutex for gap shift cycle
     pthread_mutex_t gap_cycle_lock;
-    // Shift counter
-    int gap_offset_i = 0;
     // Current gap
     int gap;
-    // Barrier for synchronization
-    pthread_barrier_t barrier;
 };
 
 class ParallelShellSorterArgs : public SorterArgs
@@ -104,13 +100,6 @@ public:
     }
     void sort(uint64_t *array, int array_size);
 
-    void initialize_shared_memory(uint64_t *array, int array_size)
-    {
-        if (pthread_mutex_init(&exp_cycle_lock, NULL) != 0)
-            exit(1);
-        this->array = &array;
-        this->array_size = array_size;
-    }
 private:
     void *thread_body(void *arg);
 
@@ -121,10 +110,14 @@ private:
     uint64_t **array;
     // Shared memory array size
     int array_size;
-    // Mutex for exp cycle
-    pthread_mutex_t exp_cycle_lock;
     // Exp value
     uint64_t exp;
+
+    void initialize_shared_memory(uint64_t *array, int array_size)
+    {
+        this->array = &array;
+        this->array_size = array_size;
+    }
 };
 
 class ParallelRadixSorterArgs : public SorterArgs

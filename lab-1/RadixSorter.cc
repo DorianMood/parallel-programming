@@ -1,9 +1,6 @@
 #include "Sorters.hh"
 
-#include <vector>
-#include <algorithm>
 #include <cstdio>
-#include <cstdint>
 
 uint64_t getMax(const uint64_t *array, const int array_size)
 {
@@ -21,16 +18,11 @@ void countSort(uint64_t *array, int array_size, uint64_t exp)
 void RadixSorter::sort(uint64_t *array, int array_size)
 {
     uint64_t m = getMax(array, array_size);
-    //printf("%lu\n", m);
-    //uint64_t result = m / 10;
-    //printf("%lu\t", result);
     for (uint64_t exp = 1; m / exp > 0; exp *= 10)
     {
-        uint64_t output[array_size];
         int i;
+        uint64_t output[array_size];
         uint64_t count[10] = {0};
-
-        //printf("%jd", exp);
 
         for (i = 0; i < array_size; i++)
             count[(array[i] / exp) % 10]++;
