@@ -13,6 +13,24 @@ uint64_t getMax(const uint64_t *array, const int array_size)
 
 void countSort(uint64_t *array, int array_size, uint64_t exp)
 {
+    int i;
+    uint64_t output[array_size];
+    uint64_t count[10] = {0};
+
+    for (i = 0; i < array_size; i++)
+        count[(array[i] / exp) % 10]++;
+
+    for (i = 1; i < 10; i++)
+        count[i] += count[i - 1];
+
+    for (i = array_size - 1; i >= 0; i--)
+    {
+        output[count[(array[i] / exp) % 10] - 1] = array[i];
+        count[(array[i] / exp) % 10]--;
+    }
+
+    for (i = 0; i < array_size; i++)
+        array[i] = output[i];
 }
 
 void RadixSorter::sort(uint64_t *array, int array_size)
@@ -69,35 +87,50 @@ void ParallelRadixSorter::sort(uint64_t *array, int array_size)
 
 void *ParallelRadixSorter::thread_body(void *arg)
 {
-    return NULL;
-    // TODO : implement following logic in parallel.
-    int tid = ((ParallelRadixSorterArgs *)arg)->tid;
+    ParallelRadixSorterArgs *args = (ParallelRadixSorterArgs *)arg;
+    int tid = args->tid;
+
+    if (tid >= m_nthreads)
+        return NULL;
     uint64_t m = getMax(*array, array_size);
-    
+
     for (uint64_t exp = 1; m / exp > 0; exp *= 10)
     {
+        pthread_barrier_wait(&barrier[0]);
         uint64_t output[array_size];
-        int i;
-        uint64_t count[10] = {0};
+        if (!pthread_mutex_trylock(&mutex[0]))
+        {
+            for (int i = 0; i < 10; i++)
+                count[i] = 0;
+        }
+        pthread_barrier_wait(&barrier[1]);
+        pthread_mutex_unlock(&mutex[0]);
         // Sync here
 
         // Async code
-        // Shared var i
-        for (i = 0; i < array_size; i++)
+        for (int i = tid; i < array_size; i += m_nthreads)
             count[((*array)[i] / exp) % 10]++;
+
         // Sync code
-        for (i = 1; i < 10; i++)
-            count[i] += count[i - 1];
+        if (!pthread_mutex_trylock(&mutex[1]))
+        {
+            for (int i = 1; i < 10; i++)
+                count[i] += count[i - 1];
+        }
+        pthread_barrier_wait(&barrier[2]);
+        pthread_mutex_unlock(&mutex[1]);
+
         // Async code
-        // Shared var i
-        for (i = array_size - 1; i >= 0; i--)
+        for (int i = array_size - 1 - tid; i >= 0; i -= m_nthreads)
         {
             output[count[((*array)[i] / exp) % 10] - 1] = (*array)[i];
             count[((*array)[i] / exp) % 10]--;
         }
+
+        pthread_barrier_wait(&barrier[3]);
+
         // Async code
-        // Shared var i
-        for (i = 0; i < array_size; i++)
+        for (int i = tid; i < array_size; i += m_nthreads)
             (*array)[i] = output[i];
     }
     return NULL;

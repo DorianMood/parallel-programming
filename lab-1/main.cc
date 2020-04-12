@@ -96,18 +96,9 @@ int main(int argc, char *argv[])
     RadixSorter sorter;
 #endif
 #endif
-
-    // for (int i = 0; i < array_size; i++)
-    //     printf("%jd\t", array[i]);
-    // printf("\n");
-
     start = timer.get_time_ns();
     sorter.sort(array, array_size);
     end = timer.get_time_ns();
-
-    // for (int i = 0; i < array_size; i++)
-    //     printf("%jd\t", array[i]);
-    // printf("\n");
 
     // check
 
@@ -115,7 +106,7 @@ int main(int argc, char *argv[])
     {
         if (array[i - 1] > array[i])
         {
-            printf("%d : %jd\t%d : %jd\n", i - 1, array[i - 1], i, array[i]);
+            printf("%d : %ju\t%d : %ju\n", i - 1, array[i - 1], i, array[i]);
             fprintf(stderr, "ERROR: Sort failed\n");
             return 1;
         }
