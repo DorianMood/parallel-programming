@@ -70,7 +70,6 @@ void ParallelRadixSorter::sort(uint64_t *array, int array_size)
     // Create threads
     for (int tid = 0; tid < array_size && tid < m_nthreads; tid++)
     {
-        printf("%d\t", tid);
         int thread_error = pthread_create(
             &threads[tid],
             NULL,
