@@ -65,8 +65,6 @@ void ParallelRadixSorter::sort(uint64_t *array, int array_size)
     // Create thread array
     pthread_t *threads;
     threads = (pthread_t *)malloc(m_nthreads * sizeof(pthread_t));
-
-    uint64_t m = getMax(array, array_size);
     this->exp = 1;
 
     // Create threads
@@ -90,16 +88,19 @@ void *ParallelRadixSorter::thread_body(void *arg)
     ParallelRadixSorterArgs *args = (ParallelRadixSorterArgs *)arg;
     int tid = args->tid;
 
-    if (tid >= m_nthreads)
+    if (tid >= array_size)
         return NULL;
+    //int step = __max(m_nthreads, array_size);
     uint64_t m = getMax(*array, array_size);
 
     for (uint64_t exp = 1; m / exp > 0; exp *= 10)
     {
+        printf("%d ", tid);
         pthread_barrier_wait(&barrier[0]);
         uint64_t output[array_size];
         if (!pthread_mutex_trylock(&mutex[0]))
         {
+            printf("Exp = %ju ", exp);
             for (int i = 0; i < 10; i++)
                 count[i] = 0;
         }
@@ -107,15 +108,29 @@ void *ParallelRadixSorter::thread_body(void *arg)
         pthread_mutex_unlock(&mutex[0]);
         // Sync here
 
+        for (int i = 0; i < array_size; i++)
+        {
+            printf("\t%d ", (*array)[i]);
+        }
+
         // Async code
         for (int i = tid; i < array_size; i += m_nthreads)
+        {
+            printf("| %d |", ((*array)[i] / exp) % 10);
             count[((*array)[i] / exp) % 10]++;
+        }
 
+        pthread_barrier_wait(&barrier[0]);
         // Sync code
         if (!pthread_mutex_trylock(&mutex[1]))
         {
+            printf("COUNT : ");
             for (int i = 1; i < 10; i++)
+            {
+                printf("%d ", count[i]);
                 count[i] += count[i - 1];
+            }
+            printf("\n");
         }
         pthread_barrier_wait(&barrier[2]);
         pthread_mutex_unlock(&mutex[1]);
