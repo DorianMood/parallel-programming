@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
         //array[i] |= (rand() & 0xffff) << 16;
         //array[i] |= static_cast<uint64_t>(rand() & 0xffff) << 32;
         //array[i] |= static_cast<uint64_t>(rand() & 0xffff) << 48;
-        array[i] = rand() % 1000000;
+        array[i] = rand() % 100;
     }
 
     HRTimer timer;

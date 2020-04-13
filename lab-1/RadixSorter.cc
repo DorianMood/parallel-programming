@@ -98,8 +98,12 @@ void *ParallelRadixSorter::thread_body(void *arg)
     {
         pthread_barrier_wait(&barrier[0]);
         if (!pthread_mutex_trylock(&mutex[0]))
+        {
             for (int i = 0; i < 10; i++)
                 count[i] = 0;
+            for (int i = 0; i < array_size; i++)
+                output[i] = 0;
+        }
         pthread_barrier_wait(&barrier[1]);
         pthread_mutex_unlock(&mutex[0]);
         // Sync here
