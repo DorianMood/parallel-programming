@@ -125,7 +125,7 @@ private:
 
     void initialize_shared_memory(uint64_t *array, int array_size)
     {
-        m_nthreads = __min(array_size, m_nthreads);
+        m_nthreads = array_size < m_nthreads ? array_size : m_nthreads;
         this->array = &array;
         this->array_size = array_size;
         output = new uint64_t[array_size];
