@@ -68,8 +68,9 @@ void ParallelRadixSorter::sort(uint64_t *array, int array_size)
     this->exp = 1;
 
     // Create threads
-    for (int tid = 0; tid < m_nthreads; tid++)
+    for (int tid = 0; tid < array_size && tid < m_nthreads; tid++)
     {
+        printf("%d\t", tid);
         int thread_error = pthread_create(
             &threads[tid],
             NULL,
@@ -90,56 +91,42 @@ void *ParallelRadixSorter::thread_body(void *arg)
 
     if (tid >= array_size)
         return NULL;
-    //int step = __max(m_nthreads, array_size);
+    
     uint64_t m = getMax(*array, array_size);
 
     for (uint64_t exp = 1; m / exp > 0; exp *= 10)
     {
-        printf("%d ", tid);
         pthread_barrier_wait(&barrier[0]);
-        uint64_t output[array_size];
         if (!pthread_mutex_trylock(&mutex[0]))
-        {
-            printf("Exp = %ju ", exp);
             for (int i = 0; i < 10; i++)
                 count[i] = 0;
-        }
         pthread_barrier_wait(&barrier[1]);
         pthread_mutex_unlock(&mutex[0]);
         // Sync here
 
-        for (int i = 0; i < array_size; i++)
-        {
-            printf("\t%d ", (*array)[i]);
-        }
-
         // Async code
         for (int i = tid; i < array_size; i += m_nthreads)
         {
-            printf("| %d |", ((*array)[i] / exp) % 10);
+            pthread_mutex_lock(mutex);
             count[((*array)[i] / exp) % 10]++;
+            pthread_mutex_unlock(mutex);
         }
 
         pthread_barrier_wait(&barrier[0]);
         // Sync code
         if (!pthread_mutex_trylock(&mutex[1]))
-        {
-            printf("COUNT : ");
             for (int i = 1; i < 10; i++)
-            {
-                printf("%d ", count[i]);
                 count[i] += count[i - 1];
-            }
-            printf("\n");
-        }
         pthread_barrier_wait(&barrier[2]);
         pthread_mutex_unlock(&mutex[1]);
 
         // Async code
         for (int i = array_size - 1 - tid; i >= 0; i -= m_nthreads)
         {
+            pthread_mutex_lock(mutex);
             output[count[((*array)[i] / exp) % 10] - 1] = (*array)[i];
             count[((*array)[i] / exp) % 10]--;
+            pthread_mutex_unlock(mutex);
         }
 
         pthread_barrier_wait(&barrier[3]);
@@ -147,6 +134,7 @@ void *ParallelRadixSorter::thread_body(void *arg)
         // Async code
         for (int i = tid; i < array_size; i += m_nthreads)
             (*array)[i] = output[i];
+        pthread_barrier_wait(&barrier[3]);
     }
     return NULL;
 }

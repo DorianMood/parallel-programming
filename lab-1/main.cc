@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
         //array[i] |= (rand() & 0xffff) << 16;
         //array[i] |= static_cast<uint64_t>(rand() & 0xffff) << 32;
         //array[i] |= static_cast<uint64_t>(rand() & 0xffff) << 48;
-        array[i] = rand() % 10;
+        array[i] = rand() % 1000000;
     }
 
     HRTimer timer;
@@ -98,19 +98,9 @@ int main(int argc, char *argv[])
 #endif
 #endif
 
-    printf("Array : ");
-    for (int i = 1; i < array_size; i++)
-        printf("%ju ", array[i]);
-    printf("\n");
-
     start = timer.get_time_ns();
     sorter.sort(array, array_size);
     end = timer.get_time_ns();
-
-    printf("Array : ");
-    for (int i = 1; i < array_size; i++)
-        printf("%ju ", array[i]);
-    printf("\n");
 
     // check
     for (int i = 1; i < array_size; i++)

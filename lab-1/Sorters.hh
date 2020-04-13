@@ -120,11 +120,14 @@ private:
     pthread_mutex_t* mutex;
     // Count bag
     uint64_t count[10] = {0};
+    // Output array
+    uint64_t *output;
 
     void initialize_shared_memory(uint64_t *array, int array_size)
     {
         this->array = &array;
         this->array_size = array_size;
+        output = new uint64_t[array_size];
         barrier = new pthread_barrier_t[BARRIER_COUNT];
         for (int i = 0; i < BARRIER_COUNT; i++)
             pthread_barrier_init(&barrier[i], NULL, m_nthreads);
