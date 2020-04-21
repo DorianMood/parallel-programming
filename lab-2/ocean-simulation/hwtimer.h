@@ -26,7 +26,7 @@ inline void resetTimer(hwtimer_t* timer)
 	hrtime_t end = 0;
 }
 
-inline void initTimer(hwtimer_t* timer) 
+static inline void initTimer(hwtimer_t* timer) 
 {
 #if defined(__linux) || defined(__linux__) || defined(linux)
     FILE* cpuinfo;

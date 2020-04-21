@@ -6,3 +6,7 @@ lab-1/radixsort-parallel*
 lab-1/.vs
 lab-1/CppProperties.json
 lab-1/.vscode
+lab-2/kmeans/kmeans-serial*
+lab-2/kmeans/kmeans-parallel*
+lab-2/ocean-simulation/serial_ocean*
+lab-2/ocean-simulation/omp_ocean*
