@@ -14,8 +14,6 @@ void ocean (int **grid, int dim, int timesteps)
         A A A A A A 
     */
 
-    // PUT YOUR CODE HERE
-
     for (int step = 0; step < timesteps; step++)
     {
         for (int i = 0; i < dim; i++)

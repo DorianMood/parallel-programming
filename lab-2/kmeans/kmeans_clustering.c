@@ -97,12 +97,11 @@ float **parallel_clustering(float **feature, /* in: [npoints][nfeatures] */
 
     // Public variables
     int i, j;
-    #pragma omp parallel for collapse(2)
+    float min_distance = FLT_MAX;
+    #pragma omp parallel for private(min_distance)
     for (i = 0; i < npoints; i++)
     {
-        float min_distance = euclid_dist_2(feature[i], clusters[0], nfeatures);
-        membership[i] = clusters[0];
-        for (j = 1; j < nclusters; j++)
+        for (j = 0; j < nclusters; j++)
         {
             // Look for minimal distance d (feature[i], clusters[j])
             float distance = euclid_dist_2(feature[i], clusters[j], nfeatures);
@@ -112,6 +111,7 @@ float **parallel_clustering(float **feature, /* in: [npoints][nfeatures] */
                 membership[i] = clusters[j];
             }
         }
+        min_distance = FLT_MAX;
     }
 
     return clusters;

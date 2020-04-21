@@ -16,6 +16,25 @@ void ocean (int **grid, int dim, int timesteps, int threads)
     */
 
     // PUT YOUR CODE HERE
+    int step;
+    #pragma omp parallel for collapse(3)
+    for (step = 0; step < timesteps; step++)
+    {
+        for (int i = 0; i < dim; i++)
+        {
+            for (int j = 0; j < dim; j++)
+            {
+                if ((i + j) % 2)
+                {
+                    grid[j][i] += ((step - 1) / 2) % 2 ? 1 : -1;
+                }
+                else
+                {
+                    grid[j][i] += (step / 2) % 2 ? 1 : -1;                    
+                }
+            }
+        }
+    }
 
     /////////////////////// the red-black algortihm (end) ///////////////////////////
 }
