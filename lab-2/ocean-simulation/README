@@ -1,0 +1,11 @@
+Please replace this text with your own.
+
+This file should include 
+	1) directions for compiling your code, 
+	2) directions for running your code, 
+	3) any other comments
+
+Test parameters include
+    1) <dim> = [18, 66, 258, 1026, 4098]
+    2) <timesteps> = [4, 16, 64, 256]
+    3) <threads> = [1, 2, 4, 8, 16, 32, 64]
