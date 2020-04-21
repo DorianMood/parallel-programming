@@ -1,7 +1,7 @@
 
-CXX= gcc
-CXXFLAGS= -O3 -std=c99
-LDFLAGS =  
+CXX = gcc
+CXXFLAGS = -O3 -std=c99
+LDFLAGS = -lm
 
 all: serial_ocean omp_ocean
 

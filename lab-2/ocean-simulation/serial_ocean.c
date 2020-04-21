@@ -24,11 +24,11 @@ void ocean (int **grid, int dim, int timesteps)
             {
                 if ((i + j) % 2)
                 {
-                    grid[j][i] -= 1;
+                    grid[j][i] += ((step - 1) / 2) % 2 ? 1 : -1;
                 }
                 else
                 {
-                    
+                    grid[j][i] += (step / 2) % 2 ? 1 : -1;                    
                 }
             }
         }

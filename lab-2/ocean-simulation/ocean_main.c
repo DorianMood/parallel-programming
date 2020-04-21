@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
     stopTimer(&timer); // End the time measuremnt here since the algorithm ended
 
     //Do the time calcuclation
-    printf("Total Execution time: %lld ns\n", getTimerNs(&timer));
+    printf("Total Execution time: %ju ns\n", getTimerNs(&timer));
 
     // Free the memory we allocated for grid
     free(temp);
