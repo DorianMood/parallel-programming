@@ -98,9 +98,10 @@ float **parallel_clustering(float **feature, /* in: [npoints][nfeatures] */
     // Public variables
     int i, j;
     float min_distance = FLT_MAX;
-    #pragma omp parallel for private(min_distance)
+    #pragma omp parallel for num_threads(num_omp_threads) private(min_distance)
     for (i = 0; i < npoints; i++)
     {
+        #pragma omp for
         for (j = 0; j < nclusters; j++)
         {
             // Look for minimal distance d (feature[i], clusters[j])

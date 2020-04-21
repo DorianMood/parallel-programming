@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void ocean (int **grid, int dim, int timesteps)
+void ocean(int **grid, int dim, int timesteps)
 {
     /********************* the red-black algortihm (start)************************/
     /*
@@ -16,19 +16,28 @@ void ocean (int **grid, int dim, int timesteps)
 
     for (int step = 0; step < timesteps; step++)
     {
-        for (int i = 0; i < dim; i++)
+        for (int i = 1; i < dim - 1; i++)
         {
-            for (int j = 0; j < dim; j++)
+            for (int j = 1; j < dim - 1; j++)
             {
-                if ((i + j) % 2)
+                if ((step % 2) && ((i + j) % 2))
                 {
-                    grid[j][i] += ((step - 1) / 2) % 2 ? 1 : -1;
+                    grid[j][i] += (grid[i - 1][j] +
+                                   grid[i][j - 1] +
+                                   grid[i + 1][j] +
+                                   grid[i][j + 1]) /
+                                  4;
                 }
-                else
+                else if (!(step % 2) && !((i + j) % 2))
                 {
-                    grid[j][i] += (step / 2) % 2 ? 1 : -1;                    
+                    grid[j][i] += (grid[i - 1][j] +
+                                   grid[i][j - 1] +
+                                   grid[i + 1][j] +
+                                   grid[i][j + 1]) /
+                                  4;
                 }
             }
+            
         }
     }
 

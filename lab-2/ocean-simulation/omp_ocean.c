@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <omp.h>
 
-void ocean (int **grid, int dim, int timesteps, int threads)
+void ocean(int **grid, int dim, int timesteps, int threads)
 {
     /********************* the red-black algortihm (start)************************/
     /*
@@ -17,20 +17,29 @@ void ocean (int **grid, int dim, int timesteps, int threads)
 
     // PUT YOUR CODE HERE
     int step;
-    #pragma omp parallel for collapse(3)
+    #pragma omp parallel for collapse(3)    
     for (step = 0; step < timesteps; step++)
     {
         for (int i = 0; i < dim; i++)
         {
             for (int j = 0; j < dim; j++)
             {
-                if ((i + j) % 2)
+
+                if ((step % 2) && ((i + j) % 2))
                 {
-                    grid[j][i] += ((step - 1) / 2) % 2 ? 1 : -1;
+                    grid[j][i] += (grid[i - 1][j] +
+                                   grid[i][j - 1] +
+                                   grid[i + 1][j] +
+                                   grid[i][j + 1]) /
+                                  4;
                 }
-                else
+                else if (!(step % 2) && !((i + j) % 2))
                 {
-                    grid[j][i] += (step / 2) % 2 ? 1 : -1;                    
+                    grid[j][i] += (grid[i - 1][j] +
+                                   grid[i][j - 1] +
+                                   grid[i + 1][j] +
+                                   grid[i][j + 1]) /
+                                  4;
                 }
             }
         }
