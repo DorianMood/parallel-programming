@@ -16,5 +16,23 @@ void ocean (int **grid, int dim, int timesteps)
 
     // PUT YOUR CODE HERE
 
+    for (int step = 0; step < timesteps; step++)
+    {
+        for (int i = 0; i < dim; i++)
+        {
+            for (int j = 0; j < dim; j++)
+            {
+                if ((i + j) % 2)
+                {
+                    grid[j][i] -= 1;
+                }
+                else
+                {
+                    
+                }
+            }
+        }
+    }
+
     /////////////////////// the red-black algortihm (end) ///////////////////////////
 }

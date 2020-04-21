@@ -93,11 +93,11 @@ int main(int argc, char* argv[])
     for (i=0; i<dim; i++) {
         grid[i] = &temp[i*dim];
     }
-    for (i=0; i<dim; i++) {
-        for (j=0; j<dim; j++) {
-            grid[i][j] = rand();
-        }
-    }
+    // for (i=0; i<dim; i++) {
+    //     for (j=0; j<dim; j++) {
+    //         grid[i][j] = rand();
+    //     }
+    // }
     ///////////////////////create the grid as required (end) //////////////////////////
 
     startTimer(&timer); // Start the time measurment here before the algorithm starts

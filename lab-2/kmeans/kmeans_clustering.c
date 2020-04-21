@@ -46,12 +46,19 @@ float **serial_clustering(float **feature, /* in: [npoints][nfeatures] */
     }
 
     // PUT YOUR CODE HERE
-    for (int j = 0; j < npoints; j++)
+    for (int i = 0; i < npoints; i++)
     {
-        for (int k = 0; k < nclusters; k++)
+        float min_distance = euclid_dist_2(feature[i], clusters[0], nfeatures);
+        membership[i] = clusters[0];
+        for (int j = 1; j < nclusters; j++)
         {
-            // Look for minimal distance d (feature[j], clusters[k])
-            if (euclid_dist_2(feature[j], ))
+            // Look for minimal distance d (feature[i], clusters[j])
+            float distance = euclid_dist_2(feature[i], clusters[j], nfeatures);
+            if (min_distance > distance)
+            {
+                min_distance = distance;
+                membership[i] = clusters[j];
+            }
         }
     }
 
@@ -88,7 +95,24 @@ float **parallel_clustering(float **feature, /* in: [npoints][nfeatures] */
         n++;
     }
 
-    // PUT YOUR CODE HERE
+    // Public variables
+    int i, j;
+    #pragma omp parallel for collapse(2)
+    for (i = 0; i < npoints; i++)
+    {
+        float min_distance = euclid_dist_2(feature[i], clusters[0], nfeatures);
+        membership[i] = clusters[0];
+        for (j = 1; j < nclusters; j++)
+        {
+            // Look for minimal distance d (feature[i], clusters[j])
+            float distance = euclid_dist_2(feature[i], clusters[j], nfeatures);
+            if (min_distance > distance)
+            {
+                min_distance = distance;
+                membership[i] = clusters[j];
+            }
+        }
+    }
 
     return clusters;
 }
