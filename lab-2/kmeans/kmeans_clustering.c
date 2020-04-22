@@ -50,6 +50,7 @@ void calculate_centroids(float **clusters, int nclusters,
                          float **feature, int npoints, int nfeatures,
                          int *membership)
 {
+    float t = feature[1][1];
     // If not clustered generate random centers
     if (membership[0] == -1)
     {

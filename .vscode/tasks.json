@@ -8,10 +8,6 @@
             "type": "shell",
             "command": "make",
             "group": "build",
-            "presentation": {
-                // Reveal the output only if unrecognized errors occur.
-                "reveal": "silent"
-            },
             "options": {
                 "cwd": "${workspaceFolder}/lab-2/kmeans/"
             }
