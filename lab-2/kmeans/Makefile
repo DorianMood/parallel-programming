@@ -1,5 +1,5 @@
 CC = gcc
-CC_FLAGS = -g -fopenmp -O3 -std=c99
+CC_FLAGS = -g -fopenmp -O0 -std=c99
 
 all: kmeans-serial kmeans-parallel
 
