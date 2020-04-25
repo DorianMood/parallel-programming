@@ -11,6 +11,7 @@
 extern double wtime(void);
 extern int num_omp_threads;
 
+// Calculates distance between two points
 float euclid_dist_2(const float *a, const float *b, const int ndimention)
 {
     float summa = 0.0;
@@ -21,6 +22,7 @@ float euclid_dist_2(const float *a, const float *b, const int ndimention)
     return sqrt(summa);
 }
 
+// Returns index of the nearest point for fixed point
 int find_nearest_point(float *point, int ndimension, float **feature, int nfeatures)
 {
     int point_index = 0;
@@ -38,6 +40,7 @@ int find_nearest_point(float *point, int ndimension, float **feature, int nfeatu
     return point_index;
 }
 
+// Returns arythmetical average for array[N]
 float *average(float **elements, int nelements, int ndimension)
 {
     float *point = (float *)malloc(ndimension * sizeof(float));
@@ -47,11 +50,14 @@ float *average(float **elements, int nelements, int ndimension)
     return point;
 }
 
-void calculate_centroids(float **clusters, int nclusters,
-                         float **feature, int npoints, int nfeatures,
-                         int *membership)
+// Returns new centroids for given data
+void calculate_centroids(float **clusters, // Clusters centroids
+                         const int nclusters, // N classes
+                         const float **feature, // Data
+                         const int npoints, // N data points
+                         const int nfeatures, // N dimension
+                         const int *membership) // Membership of each instance
 {
-    // If not clustered generate random centers
     if (membership[0] == -1)
     {
         int n = 0;
@@ -87,6 +93,7 @@ void calculate_centroids(float **clusters, int nclusters,
                 feature[i][j];// / (float)clusters_size[membership[i]];
         }
     }
+    free(cs);
 }
 
 /*----< serial_clustering() >---------------------------------------------*/
@@ -110,7 +117,9 @@ float **serial_clustering(float **feature, /* in: [npoints][nfeatures] */
         membership[i] = -1;
 
     // PUT YOUR CODE HERE
-    int count = 0;
+
+    int *test = (int *)malloc(10 * sizeof(int));
+    int count;
     do
     {
         count = 0;
