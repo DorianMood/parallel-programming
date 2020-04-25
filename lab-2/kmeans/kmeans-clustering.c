@@ -4,13 +4,14 @@
 #include <math.h>
 #include <omp.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "kmeans.h"
 
 extern double wtime(void);
 extern int num_omp_threads;
 
-float euclid_dist_2(float *a, float *b, int ndimention)
+float euclid_dist_2(const float *a, const float *b, const int ndimention)
 {
     float summa = 0.0;
     for (int i = 0; i < ndimention; i++)
@@ -53,7 +54,6 @@ void calculate_centroids(float **clusters, int nclusters,
     // If not clustered generate random centers
     if (membership[0] == -1)
     {
-        int *test = (int *)malloc(nclusters * sizeof(int));
         int n = 0;
         for (int i = 0; i < nclusters; i++)
         {
@@ -72,8 +72,7 @@ void calculate_centroids(float **clusters, int nclusters,
     //    clusters[i] = 0;
 
     // Calculate clusters sizes
-    int *cs;
-    cs = (int *)malloc(nclusters * sizeof(int));
+    int *cs = (int *)malloc(nclusters * sizeof(int));
     // for (int i = 0; i < nclusters; i++)
     //     clusters_size = 0;
     // for (int i = 0; i < npoints; i++)
@@ -123,6 +122,7 @@ float **serial_clustering(float **feature, /* in: [npoints][nfeatures] */
         for (int i = 0; i < npoints; i++)
         {
             min_distance = FLT_MAX;
+            bool changed = false;
             // match each cluster
             for (int j = 0; j < nclusters; j++)
             {
@@ -131,13 +131,12 @@ float **serial_clustering(float **feature, /* in: [npoints][nfeatures] */
                 if (distance < min_distance)
                 {
                     min_distance = distance;
-                    if (membership[i] != j)
-                    {
-                        count++;
-                    }
+                    changed = (membership[i] != j) || changed;
                     membership[i] = j;
                 }
             }
+            if (changed)
+                count++;
         }
     } while (((float)count / (float)npoints) > threshold);
 

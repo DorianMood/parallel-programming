@@ -12,7 +12,7 @@ int     cluster(int, int, float**, int, float, float***);
 float **serial_clustering(float**, int, int, int, float, int*);
 float **parallel_clustering(float**, int, int, int, float, int*);
 
-float   euclid_dist_2        (float*, float*, int);
+float   euclid_dist_2        (const float*, const float*, const int);
 int     find_nearest_point   (float* , int, float**, int);
 
 #endif
