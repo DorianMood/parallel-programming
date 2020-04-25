@@ -50,10 +50,10 @@ void calculate_centroids(float **clusters, int nclusters,
                          float **feature, int npoints, int nfeatures,
                          int *membership)
 {
-    float t = feature[1][1];
     // If not clustered generate random centers
     if (membership[0] == -1)
     {
+        int *test = (int *)malloc(nclusters * sizeof(int));
         int n = 0;
         for (int i = 0; i < nclusters; i++)
         {
@@ -61,20 +61,23 @@ void calculate_centroids(float **clusters, int nclusters,
             for (int j = 0; j < nfeatures; j++)
             {
                 float x = feature[n][j];
-                clusters[i][j] = (float) feature[n][j];
+                clusters[i][j] = (float)feature[n][j];
             }
             n++;
         }
         return;
     }
     // Reset cluster centers
-    memset(clusters, 0, sizeof(clusters[0][0]) * nclusters * nfeatures);
+    //for (int i = 0; i < nclusters * nfeatures; i++)
+    //    clusters[i] = 0;
 
     // Calculate clusters sizes
-    int *clusters_size = (int *)malloc(nclusters * sizeof(int));
-    memset(clusters_size, 0, nclusters);
-    for (int i = 0; i < npoints; i++)
-        clusters[membership[i]]++;
+    int *cs;
+    cs = (int *)malloc(nclusters * sizeof(int));
+    // for (int i = 0; i < nclusters; i++)
+    //     clusters_size = 0;
+    // for (int i = 0; i < npoints; i++)
+    //     clusters_size[membership[i]]++;
 
     // Calculate new cluster centers
     for (int i = 0; i < npoints; i++)
@@ -82,7 +85,7 @@ void calculate_centroids(float **clusters, int nclusters,
         for (int j = 0; j < nfeatures; j++)
         {
             clusters[membership[i]][j] +=
-                feature[i][j] / (float)npoints;
+                feature[i][j];// / (float)clusters_size[membership[i]];
         }
     }
 }
@@ -98,11 +101,14 @@ float **serial_clustering(float **feature, /* in: [npoints][nfeatures] */
 
     float **clusters; /* out: [nclusters][nfeatures] */
     /* allocate space for returning variable clusters[] */
-    clusters = (float **)malloc(sizeof(float[nclusters][nfeatures]));
-    memset(clusters, 0, sizeof(float[nclusters][nfeatures]));
+    clusters = (float **)malloc(nclusters * sizeof(float *));
+    clusters[0] = (float *)malloc(nfeatures * sizeof(float));
+    for (int i = 1; i < nfeatures; i++)
+        clusters[i] = clusters[i - 1] + nfeatures;
 
     /* Initilize membership */
-    memset(membership, -1, sizeof(int[npoints]));
+    for (int i = 0; i < npoints; i++)
+        membership[i] = -1;
 
     // PUT YOUR CODE HERE
     int count = 0;
@@ -116,7 +122,7 @@ float **serial_clustering(float **feature, /* in: [npoints][nfeatures] */
         // each point
         for (int i = 0; i < npoints; i++)
         {
-            float min_distance = FLT_MAX;
+            min_distance = FLT_MAX;
             // match each cluster
             for (int j = 0; j < nclusters; j++)
             {
@@ -127,14 +133,12 @@ float **serial_clustering(float **feature, /* in: [npoints][nfeatures] */
                     min_distance = distance;
                     if (membership[i] != j)
                     {
-                        printf("%d", count);
                         count++;
                     }
                     membership[i] = j;
                 }
             }
         }
-        printf("|%f|", ((float)count / (float)npoints));
     } while (((float)count / (float)npoints) > threshold);
 
     return clusters;

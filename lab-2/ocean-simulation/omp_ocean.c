@@ -15,16 +15,15 @@ void ocean(int **grid, int dim, int timesteps, int threads)
         A A A A A A 
     */
 
-    // PUT YOUR CODE HERE
-    int step;
-    #pragma omp parallel for collapse(3)    
+    int step = 0;
+    #pragma omp parallel for schedule(dynamic, 2) shared(grid, step, dim)
     for (step = 0; step < timesteps; step++)
     {
-        for (int i = 0; i < dim; i++)
+        for (int i = 1; i < dim - 1; i++)
         {
-            for (int j = 0; j < dim; j++)
+            for (int j = 1; j < dim - 1; j++)
             {
-
+                // Even step claculate *
                 if ((step % 2) && ((i + j) % 2))
                 {
                     grid[j][i] += (grid[i - 1][j] +
@@ -32,7 +31,7 @@ void ocean(int **grid, int dim, int timesteps, int threads)
                                    grid[i + 1][j] +
                                    grid[i][j + 1]) /
                                   4;
-                }
+                }// Odd step calculate -
                 else if (!(step % 2) && !((i + j) % 2))
                 {
                     grid[j][i] += (grid[i - 1][j] +
@@ -42,8 +41,8 @@ void ocean(int **grid, int dim, int timesteps, int threads)
                                   4;
                 }
             }
+            
         }
     }
-
     /////////////////////// the red-black algortihm (end) ///////////////////////////
 }

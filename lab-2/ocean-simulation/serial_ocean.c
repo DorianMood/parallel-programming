@@ -20,6 +20,7 @@ void ocean(int **grid, int dim, int timesteps)
         {
             for (int j = 1; j < dim - 1; j++)
             {
+                // Even step claculate *
                 if ((step % 2) && ((i + j) % 2))
                 {
                     grid[j][i] += (grid[i - 1][j] +
@@ -27,7 +28,7 @@ void ocean(int **grid, int dim, int timesteps)
                                    grid[i + 1][j] +
                                    grid[i][j + 1]) /
                                   4;
-                }
+                }// Odd step calculate -
                 else if (!(step % 2) && !((i + j) % 2))
                 {
                     grid[j][i] += (grid[i - 1][j] +
