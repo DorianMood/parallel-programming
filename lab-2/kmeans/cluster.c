@@ -39,6 +39,7 @@ int cluster(int      numObjects,      /* number of input objects */
                                             threshold,
                                             membership);      
 #endif
+	
 
     if (*cluster_centres) {
 		free((*cluster_centres)[0]);
@@ -47,7 +48,7 @@ int cluster(int      numObjects,      /* number of input objects */
     *cluster_centres = tmp_cluster_centres;
 
    
-	free(membership);
+    free(membership);
 
     return 0;
 }
