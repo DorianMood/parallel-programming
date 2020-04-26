@@ -12,3 +12,5 @@ lab-2/ocean-simulation/serial_ocean*
 lab-2/ocean-simulation/omp_ocean*
 lab-2/kmeans/kmeans-parallel.exe
 lab-2/kmeans/.vs/
+lab-2/kmeans/.vs/tasks.vs.json
+lab-2/kmeans/.vs/kmeans/v16/Browse.VC.db
