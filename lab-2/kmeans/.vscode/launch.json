@@ -5,6 +5,28 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "(gdb) WSL",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/kmeans-serial",
+            "args": ["-s", "1000", "-k", "4"],
+            "stopAtEntry": false,
+            "cwd": "/mnt/d/Documents/STUDY/Parallel-programming/Labs/lab-2/kmeans/",
+            "environment": [],
+            "externalConsole": false,
+            "windows": {
+                "MIMode": "gdb",
+                "setupCommands": [
+                    {
+                        "description": "Enable pretty-printing for gdb",
+                        "text": "-enable-pretty-printing",
+                        "ignoreFailures": true
+                    }
+                ],
+            },
+            "miDebuggerPath": "/usr/bin/gdb",
+        },
+        {
             "name": "gcc.exe - Build and debug active file",
             "type": "cppdbg",
             "request": "launch",
