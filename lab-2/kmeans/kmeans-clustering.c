@@ -105,7 +105,7 @@ float **serial_clustering(float **feature, /* in: [npoints][nfeatures] */
     /* allocate space for returning variable clusters[] */
     clusters = (float **)malloc(nclusters * sizeof(float *));
     //clusters[0] = (float *)malloc(nfeatures * sizeof(float));
-    for (int i = 0; i < nfeatures; i++)
+    for (int i = 0; i < nclusters; i++)
         clusters[i] = (float *)malloc(nfeatures * sizeof(float));
 
     /* Initilize membership */
@@ -113,6 +113,7 @@ float **serial_clustering(float **feature, /* in: [npoints][nfeatures] */
         membership[i] = -1;
 
     // PUT YOUR CODE HERE
+
     
     int count;
     do
@@ -163,7 +164,7 @@ float **parallel_clustering(float **feature, /* in: [npoints][nfeatures] */
     
     /* allocate space for returning variable clusters[] */
     clusters = (float **)malloc(nclusters * sizeof(float *));
-    for (int i = 0; i < nfeatures; i++)
+    for (int i = 0; i < nclusters; i++)
         clusters[i] = (float *)malloc(nfeatures * sizeof(float));
 
     /* Initilize membership */

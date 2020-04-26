@@ -25,6 +25,7 @@
                 ],
             },
             "miDebuggerPath": "/usr/bin/gdb",
+            "preLaunchTask": "make"
         },
         {
             "name": "gcc.exe - Build and debug active file",
