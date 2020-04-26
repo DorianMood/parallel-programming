@@ -130,7 +130,7 @@ int main(int argc, char **argv)
     printf("number of Objects: %d\n", numObjects);
     printf("number of Attributes per Object: %d\n\n", numAttributes);
 
-    /*  	printf("Cluster Centers Output\n"); 
+    printf("Cluster Centers Output\n"); 
 	printf("The first number is cluster number and the following data is arribute value\n");
 	printf("=============================================================================\n\n");
 	
@@ -140,13 +140,13 @@ int main(int argc, char **argv)
             printf("%.2f ", cluster_centres[i][j]);
         printf("\n\n");
     }
-*/
+
 
     printf("Time for process: %f s\n", timing);
 
-    free(attributes);
-    free(cluster_centres[0]);
-    free(cluster_centres);
     free(buf);
+    //free(attributes);
+    //free(cluster_centres[0]);
+    //free(cluster_centres);
     return (0);
 }
