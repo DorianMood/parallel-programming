@@ -181,6 +181,7 @@ float **parallel_clustering(float **feature, /* in: [npoints][nfeatures] */
         calculate_centroids(clusters, nclusters, feature, npoints, nfeatures, membership);
         // Perform clustering
         // each point
+        #pragma omp parallel for schedule(static, nthreads)
         for (int i = 0; i < npoints; i++)
         {
             int cluster_index = (membership[i] == -1) ? 0 : membership[i];
