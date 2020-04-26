@@ -5,11 +5,31 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "(gdb) Bash on Windows Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/kmeans-parallel",
+            "args": ["-s", "100", "-k", "3", "-n", "2"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
             "name": "gcc.exe - Build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}\\kmeans-parallel.exe",
-            "args": ["-s", "100", "-k", "3", "-n", "2"],
+            "program": "${fileDirname}/kmeans-parallel.exe",
+            "args": ["-s", "1000", "-k", "3", "-n", "2"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
