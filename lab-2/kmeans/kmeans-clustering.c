@@ -65,29 +65,19 @@ void calculate_centroids(float **clusters, // Clusters centroids
         {
             // n = (int)rand() % npoints;
             for (int j = 0; j < nfeatures; j++)
-            {
-                float x = feature[n][j];
                 clusters[i][j] = (float)feature[n][j];
-            }
             n++;
         }
         return;
     }
+
     // Reset cluster centers
     for (int i = 0; i < nclusters; i++)
-    {
         for (int j = 0; j < nfeatures; j++)
-        {
             clusters[i][j] = 0;
-        }
-    }
 
     // Calculate clusters sizes
     int *clusters_size = (int *)malloc(nclusters * sizeof(int));
-    if (clusters_size == NULL)
-    {
-        int x = 0;
-    }
     for (int i = 0; i < nclusters; i++)
         clusters_size[i] = 0;
     for (int i = 0; i < npoints; i++)
@@ -95,13 +85,10 @@ void calculate_centroids(float **clusters, // Clusters centroids
 
     // Calculate new cluster centers
     for (int i = 0; i < npoints; i++)
-    {
         for (int j = 0; j < nfeatures; j++)
-        {
             clusters[membership[i]][j] +=
                 feature[i][j]/ (float)clusters_size[membership[i]];
-        }
-    }
+
     free(clusters_size);
 }
 
@@ -134,22 +121,19 @@ float **serial_clustering(float **feature, /* in: [npoints][nfeatures] */
         // Calculate new centers
         calculate_centroids(clusters, nclusters, feature, npoints, nfeatures, membership);
         // Perform clustering
-        // each point
         for (int i = 0; i < npoints; i++)
         {
             int cluster_index = (membership[i] == -1) ? 0 : membership[i];
             float min_distance = euclid_dist_2(feature[i], clusters[cluster_index], nfeatures);
             int changed = 0;
-            // match each cluster
+            // each cluster
             for (int j = 0; j < nclusters; j++)
             {
                 // Look for minimal distance d (feature[i], clusters[j])
                 float distance = euclid_dist_2(feature[i], clusters[j], nfeatures);
-                // TODO :  it doest accept 1st case distance(1st, 1st) picked first
                 if (membership[i] == -1 || distance < min_distance)
                 {
                     min_distance = distance;
-                    // TODO : fix this condition
                     if (membership[i] != j)
                         changed++;
                     membership[i] = j;
@@ -158,7 +142,7 @@ float **serial_clustering(float **feature, /* in: [npoints][nfeatures] */
             if (changed)
                 count++;
         }
-    } while (((float)count / (float)npoints) > threshold);
+    } while ((count / (float)npoints) > threshold);
 
     return clusters;
 }
@@ -201,16 +185,14 @@ float **parallel_clustering(float **feature, /* in: [npoints][nfeatures] */
             int cluster_index = (membership[i] == -1) ? 0 : membership[i];
             float min_distance = euclid_dist_2(feature[i], clusters[cluster_index], nfeatures);
             int changed = 0;
-            // match each cluster
+            // each cluster
             for (int j = 0; j < nclusters; j++)
             {
                 // Look for minimal distance d (feature[i], clusters[j])
                 float distance = euclid_dist_2(feature[i], clusters[j], nfeatures);
-                // TODO :  it doest accept 1st case distance(1st, 1st) picked first
                 if (membership[i] == -1 || distance < min_distance)
                 {
                     min_distance = distance;
-                    // TODO : fix this condition
                     if (membership[i] != j)
                         changed++;
                     membership[i] = j;
@@ -219,7 +201,7 @@ float **parallel_clustering(float **feature, /* in: [npoints][nfeatures] */
             if (changed)
                 count++;
         }
-    } while (((float)count / (float)npoints) > threshold);
+    } while ((count / (float)npoints) > threshold);
 
     return clusters;
 }
