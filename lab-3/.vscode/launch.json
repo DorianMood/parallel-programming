@@ -13,7 +13,7 @@
                 "10",
                 "10"
             ],
-            "stopAtEntry": true,
+            "stopAtEntry": false,
             "cwd": "${workspaceFolder}/CG",
             "environment": [],
             "externalConsole": false,
