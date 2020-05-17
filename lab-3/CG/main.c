@@ -9,6 +9,7 @@
 int main(int argc, char **argv)
 {
     MPI_Init(&argc, &argv);
+    
 
     double tol, *A, *x, *x_star, *x_star_seq, *b, start_time, setup_time, sequential_solution_time, parallel_solution_time;
     int Np, N, max_steps, tol_digits, temp_rank;

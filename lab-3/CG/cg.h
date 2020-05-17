@@ -1,37 +1,38 @@
 #include <mpi.h>
 
-typedef struct {
-  // Struct representing local data in a system of linear equations Ax = b, 
-  // where A is symmetric and positive definite
-  int N;
+typedef struct
+{
+    // Struct representing local data in a system of linear equations Ax = b,
+    // where A is symmetric and positive definite
+    int N;
 
-  double *A;
-  double *x;
-  double *x_star; // vector x* for approximated solution
-  double *b;
+    double *A;
+    double *x;
+    double *x_star; // vector x* for approximated solution
+    double *b;
 } equation_data;
 
+typedef struct
+{
+    int N;
+    int Np;
 
-typedef struct {
-  int N;
-  int Np;
+    int rank;
+    int coord; // Coordinate of this row in the 1D grid
+    int displ; // The displacement of this row from the top
 
-  int rank;
-  int coord; // Coordinate of this row in the 1D grid
-  int displ; // The displacement of this row from the top
- 
-  int count; // Height of this row
-  int count_max; // The maximum height of a row 
-  int count_min; // The minimum height of a row
+    int count;     // Height of this row
+    int count_max; // The maximum height of a row
+    int count_min; // The minimum height of a row
 
-  MPI_Datatype block_trans_t; // Type for a block of columns in a row
-  MPI_Datatype row_t; // Type for a full row
+    MPI_Datatype block_trans_t; // Type for a block of columns in a row
+    MPI_Datatype row_t;         // Type for a full row
 
-  int *ranks; // Rank of all processes, indexed by coordinate
-  int *counts; // Dimension of all rows, indexed by rank
-  int *displs; // Displacement of all rows, indexed by rank
+    int *ranks;  // Rank of all processes, indexed by coordinate
+    int *counts; // Dimension of all rows, indexed by rank
+    int *displs; // Displacement of all rows, indexed by rank
 
-  MPI_Comm comm;
+    MPI_Comm comm;
 } process_data;
 
 process_data set_up_world(int Np, int N);

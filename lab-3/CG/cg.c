@@ -52,7 +52,7 @@ double *conjugate_gradient_serial(const double *A, const double *b, const int N,
         double *omega, *alpha;
         omega = malloc(N * sizeof(double));
         alpha = malloc(N * sizeof(double));
-        
+
         // omega = A * p;
         for (int i = 0; i < N; i++)
             omega[i] = A[i] * p[i];
@@ -78,6 +78,53 @@ void conjugate_gradient_parallel(process_data row, equation_data equation, int N
     double *x;
 
     x = &(equation.x_star[0]);
+
+    printf("<%d>", row.rank);
+
+    // Conjugate gradient method implementation
+
+    double *r, *p;
+
+    r = malloc(N * sizeof(double));
+    for (int i = 0; i < N; i++)
+        r[i] = equation.b[i];
+    
+    p = malloc(N * sizeof(double));
+    p[0] = pow(length(r, N), 2);
+
+    for (int k = 1; k < max_steps; k++)
+    {
+        if (p[k - 1] <= length(equation.b, N))
+            break;
+
+        if (k == 1)
+            for (int i = 0; i < N; i++)
+                p[i] = r[i];
+        else
+            for (int i = 0; i < N; i++)
+                p[i] = r[i] + (p[k - 1] / p[k - 2]) * p[i];
+        
+        double *omega, *alpha;
+        omega = malloc(N * sizeof(double));
+        alpha = malloc(N * sizeof(double));
+
+        // omega = A * p;
+        for (int i = 0; i < N; i++)
+            omega[i] = equation.A[i] * p[i];
+        // alpha = p[k - 1] / pT * omega
+        for (int i = 0; i < N; i++)
+            alpha[i] = p[k - 1] / p[i] * omega[i];
+        // x = x + alpha * p;
+        for (int i = 0; i < N; i++)
+            x[i] = x[i] + alpha[i] * p[i];
+        // r = r - a * omega;
+        for (int i = 0; i < N; i++)
+            r[i] = r[i] - alpha[i] * omega[i];
+
+        p[k] = pow(length(r, N), 2);
+    }
+
+    equation.x = x;
 
     return;
 }
