@@ -16,6 +16,9 @@ double *conjugate_gradient_serial(double *A, double *b, int N, int max_steps, do
 
   malloc_test(x);
 
+  // Conjugate gradient method implementation
+  
+
   return x;
   /* PUT OR MODIFY YOUR SERIAL CODE IN THIS FUNCTION*/
 }

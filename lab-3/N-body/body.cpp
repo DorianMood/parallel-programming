@@ -6,14 +6,14 @@
 
 #include "body.h"
 
-void Usage(char* prog_name) // Input Description
+void Usage(char *prog_name) // Input Description
 {
     fprintf(stderr, "usage: mpiexec -n <nProcesses> %s\n", prog_name);
     fprintf(stderr, "<nParticle> <nTimestep> <sizeTimestep>\n");
     exit(0);
 }
 
-void Get_args(int argc, char* argv[], int* n_p, int* n_steps_p, double* delta_t_p) // get parameter information
+void Get_args(int argc, char *argv[], int *n_p, int *n_steps_p, double *delta_t_p) // get parameter information
 {
     if (my_rank == 0)
     {
@@ -38,18 +38,18 @@ void Get_args(int argc, char* argv[], int* n_p, int* n_steps_p, double* delta_t_
 
 // the initial conditions are automatically generated, and all processes call this function because of gather communication
 void Gen_init_cond(double masses[], vect_t pos[], vect_t loc_vel[], int n, int loc_n)
-{                                                          
+{
     const double mass = 10000, gap = 0.01, speed = 0;
     if (my_rank == 0)
     {
-		int ny = ceil(sqrt(n));
-		double y = 0.0;
+        int ny = ceil(sqrt(n));
+        double y = 0.0;
         for (int i = 0; i < n; i++)
         {
             masses[i] = mass;
             pos[i][X] = i * gap;
-			if ((i + 1) % ny == 0)
-				++y;
+            if ((i + 1) % ny == 0)
+                ++y;
             pos[i][Y] = y;
             vel[i][X] = 0.0;
             vel[i][Y] = 0.0;
@@ -69,7 +69,7 @@ void Output_parallel(double masses[], vect_t pos[], vect_t loc_vel[], int n, int
     {
         printf("Output Parallel State\n");
         for (int i = 0; i < n; i++)
-			printf(" %3d X: %.5f Y: %.5f\n", i, pos[i][X], pos[i][Y]);
+            printf(" %3d X: %.5f Y: %.5f\n", i, pos[i][X], pos[i][Y]);
         printf("\n");
         fflush(stdout);
     }
@@ -81,14 +81,14 @@ void Output_serial(double masses[], vect_t pos[], vect_t vel[], int n) // output
     {
         printf("Output Serial State\n");
         for (int i = 0; i < n; i++)
-			printf(" %3d X: %.5f Y: %.5f\n", i, pos[i][X], pos[i][Y]);
+            printf(" %3d X: %.5f Y: %.5f\n", i, pos[i][X], pos[i][Y]);
         printf("\n");
         fflush(stdout);
     }
 }
 
 // nbody parallel implementation
-void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t loc_pos[], vect_t loc_vel[], int n, int loc_n, int n_steps, double delta_t) 
+void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t loc_pos[], vect_t loc_vel[], int n, int loc_n, int n_steps, double delta_t)
 {
     /* PUT OR MODIFY YOUR PARALLEL CODE IN THIS FUNCTION*/
     int step;
@@ -96,15 +96,15 @@ void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t l
     {
         // Calculate the force, update the states, and then synchronize positions
 #ifdef DEBUG
-        if (step  == n_steps)
-		    Output_parallel(masses, pos, loc_vel, n, loc_n);
+        if (step == n_steps)
+            Output_parallel(masses, pos, loc_vel, n, loc_n);
 #endif
     }
     /* PUT OR MODIFY YOUR PARALLEL CODE IN THIS FUNCTION*/
 }
 
 // nbody serial implementation
-void nbody_serial(double masses[], vect_t forces[], vect_t pos[], vect_t vel[], int n, int n_steps, double delta_t) 
+void nbody_serial(double masses[], vect_t forces[], vect_t pos[], vect_t vel[], int n, int n_steps, double delta_t)
 {
     /* PUT OR MODIFY YOUR SERIAL CODE IN THIS FUNCTION*/
     int step;
@@ -112,24 +112,72 @@ void nbody_serial(double masses[], vect_t forces[], vect_t pos[], vect_t vel[], 
     {
         // Calculate the force, update the states, and then synchronize positions
 #ifdef DEBUG
-        if (step  == n_steps)
-		    Output_serial(masses, pos, vel, n);
+        if (step == n_steps)
+            Output_serial(masses, pos, vel, n);
 #endif
     }
     /* PUT OR MODIFY YOUR SERIAL CODE IN THIS FUNCTION*/
+
+    const double G = 9.8;
+    vect_t *a = new vect_t[n];
+
+    // calculate new forces
+    for (int i = 0; i < n; i++)
+    {
+        // Current force to zero
+        forces[i][X] = 0;
+        forces[i][Y] = 0;
+
+        for (int j = 0; j < n; j++)
+        {
+            // Calculate a single force between i-th and j-th bodies
+            vect_t d, f;
+
+            double dividend = G * masses[i] * masses[j];
+            
+            d[X] = abs(pos[i][X] - pos[j][X]);
+            f[X] = dividend / pow(d[X], 2);
+
+            d[Y] = abs(pos[i][Y] - pos[j][Y]);
+            f[Y] = dividend / pow(d[Y], 2);
+
+            forces[i][X] += f[X];
+            forces[i][Y] += f[Y];
+        }
+        a[i][X] = forces[i][X] / masses[i];
+        a[i][Y] = forces[i][Y] / masses[i];
+    }
+
+    // calculate new vel
+    for (int i = 0; i < n; i++)
+    {
+        // Calculate a i-th body vel
+        vel[i][X] = vel[i][X] + a[i][X] * delta_t;
+    }
+
+    // calculate new positions
+    for (int i = 0; i < n; i++)
+    {
+        // Calculate a i-th body position
+        
+        double t_square = delta_t * delta_t;
+
+        pos[i][X] = pos[i][X] + vel[i][X] * delta_t + a[i][X] * t_square / 2;
+        pos[i][Y] = pos[i][Y] + vel[i][Y] * delta_t + a[i][Y] * t_square / 2;
+    }
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    int n, loc_n;                       // Number of particles, number of particles per process, current particle (loop variable)
-    int n_steps;                        // Number of steps, current step
-    double delta_t;                     // Step length
-    double *masses;                     // Masses of particles
-    vect_t *pos, *loc_pos;              // Positions of particles
-    vect_t *loc_vel;                    // Speeds of particles in each process
-    vect_t *forces, *loc_forces;        // Gravities of particles
-    double start, finish;               // Timer
-    double parallel_time, serial_time;  // parallel and serial duration
+    int n, loc_n;                      // Number of particles, number of particles per process, current particle (loop variable)
+    int n_steps;                       // Number of steps, current step
+    double delta_t;                    // Step length
+    double *masses;                    // Masses of particles
+    vect_t *pos, *loc_pos;             // Positions of particles
+    vect_t *loc_vel;                   // Speeds of particles in each process
+    vect_t *forces, *loc_forces;       // Gravities of particles
+    double start, finish;              // Timer
+    double parallel_time, serial_time; // parallel and serial duration
 
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &comm_sz);
@@ -139,35 +187,38 @@ int main(int argc, char* argv[])
 
     // Get parameters and initialize arrays
     Get_args(argc, argv, &n, &n_steps, &delta_t);
-    loc_n = n / comm_sz;                                    // n % comm_sz == 0
-    masses = (double*)malloc(n * sizeof(double));
-    pos = (vect_t*)malloc(n * sizeof(vect_t));
+    loc_n = n / comm_sz; // n % comm_sz == 0
+    masses = (double *)malloc(n * sizeof(double));
+    pos = (vect_t *)malloc(n * sizeof(vect_t));
     loc_pos = pos + my_rank * loc_n;
-    loc_vel = (vect_t*)malloc(loc_n * sizeof(vect_t));
-    loc_forces = (vect_t*)malloc(loc_n * sizeof(vect_t));
-    if (my_rank == 0) {
-        vel = (vect_t*)malloc(n * sizeof(vect_t));
-        forces = (vect_t*)malloc(n * sizeof(vect_t));
+    loc_vel = (vect_t *)malloc(loc_n * sizeof(vect_t));
+    loc_forces = (vect_t *)malloc(loc_n * sizeof(vect_t));
+    if (my_rank == 0)
+    {
+        vel = (vect_t *)malloc(n * sizeof(vect_t));
+        forces = (vect_t *)malloc(n * sizeof(vect_t));
     }
     Gen_init_cond(masses, pos, loc_vel, n, loc_n);
 
     // Start calculating and timing
     if (my_rank == 0)
-        start = MPI_Wtime();   
+        start = MPI_Wtime();
 
     nbody_parallel(masses, loc_forces, pos, loc_pos, loc_vel, n, loc_n, n_steps, delta_t);
 
-    if (my_rank == 0) {
+    if (my_rank == 0)
+    {
         parallel_time = MPI_Wtime() - start;
     }
 
-    if (my_rank == 0) {
+    if (my_rank == 0)
+    {
         start = MPI_Wtime();
         nbody_serial(masses, forces, pos, vel, n, n_steps, delta_t);
         serial_time = MPI_Wtime() - start;
     }
 
-	// Output time
+    // Output time
     if (my_rank == 0)
     {
         printf("serial time = %f s\n", serial_time);
@@ -183,4 +234,3 @@ int main(int argc, char* argv[])
     MPI_Finalize();
     return 0;
 }
-
