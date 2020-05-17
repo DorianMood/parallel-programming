@@ -8,28 +8,34 @@
 
 // Solve Ax = b for x, using the Conjugate Gradient method.
 // Terminates once the maximum number of steps or tolerance has been reached
-double *conjugate_gradient_serial(double *A, double *b, int N, int max_steps, double tol) {
-  /* PUT OR MODIFY YOUR SERIAL CODE IN THIS FUNCTION*/
-  double *x;
+double *conjugate_gradient_serial(double **A, double *b, int N, int max_steps, double tol)
+{
 
-  x = malloc(N*sizeof(double));
+    double *x;
 
-  malloc_test(x);
+    x = malloc(N * sizeof(double));
 
-  // Conjugate gradient method implementation
-  
+    malloc_test(x);
 
-  return x;
-  /* PUT OR MODIFY YOUR SERIAL CODE IN THIS FUNCTION*/
+    // Conjugate gradient method implementation
+
+    double *r = b;
+    double *ro;
+
+    for (int i = 1; i < max_steps; i++)
+    {
+        
+    }
+
+    return x;
 }
 
+void conjugate_gradient_parallel(process_data row, equation_data equation, int N, int max_steps, double tol)
+{
 
-void conjugate_gradient_parallel(process_data row, equation_data equation, int N, int max_steps, double tol) {
-  /* PUT OR MODIFY YOUR PARALLEL CODE IN THIS FUNCTION*/
-  double *x;
- 
-  x = &(equation.x_star[0]);
+    double *x;
 
-  return;
-  /* PUT OR MODIFY YOUR PARALLEL CODE IN THIS FUNCTION*/
+    x = &(equation.x_star[0]);
+
+    return;
 }

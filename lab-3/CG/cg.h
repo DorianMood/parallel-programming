@@ -40,6 +40,6 @@ equation_data random_linear_system(process_data row);
 double max_error(double *real_x, double *approx_x, int N);
 void malloc_test(void *ptr);
 
-double *conjugate_gradient_serial(double *A, double *b, int N, int max_steps, double tol);
+double *conjugate_gradient_serial(double **A, double *b, int N, int max_steps, double tol);
 
 void conjugate_gradient_parallel(process_data row, equation_data equation, int N, int max_steps, double tol);
