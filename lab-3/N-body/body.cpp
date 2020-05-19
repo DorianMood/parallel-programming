@@ -6,7 +6,7 @@
 
 #include "body.h"
 
-#define DEBUG 1
+//#define DEBUG 1
 
 void Usage(char *prog_name) // Input Description
 {
@@ -99,6 +99,7 @@ void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t l
     for (step = 1; step <= n_steps; step++)
     {
         MPI_Scatter(pos, loc_n, vect_mpi_t, loc_pos, loc_n, vect_mpi_t, 0, MPI_COMM_WORLD);
+        vect_t* loc_d_pos = new vect_t[loc_n];
         // Calculate the force, update the states, and then synchronize positions
         for (int i = 0; i < loc_n; i++)
         {
@@ -141,10 +142,15 @@ void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t l
 
             // Calculate a i-th body position
             const double t_square = delta_t * delta_t;
-            loc_pos[i][X] = loc_pos[i][X] + loc_vel[i][X] * delta_t + a[X] * t_square / 2;
-            loc_pos[i][Y] = loc_pos[i][Y] + loc_vel[i][Y] * delta_t + a[Y] * t_square / 2;
+            loc_d_pos[i][X] = loc_vel[i][X] * delta_t + a[X] * t_square / 2;
+            loc_d_pos[i][Y] = loc_vel[i][Y] * delta_t + a[Y] * t_square / 2;
         }
         // Synchronize here
+        for (int i = 0; i < loc_n; i++)
+        {
+            loc_pos[i][X] = loc_pos[i][X] + loc_d_pos[i][X];
+            loc_pos[i][Y] = loc_pos[i][Y] + loc_d_pos[i][Y];
+        }
         MPI_Gather(loc_pos, loc_n, vect_mpi_t, pos, loc_n, vect_mpi_t, 0, MPI_COMM_WORLD);
     }
 #ifdef DEBUG
@@ -156,9 +162,10 @@ void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t l
 // nbody serial implementation
 void nbody_serial(double masses[], vect_t forces[], vect_t pos[], vect_t vel[], int n, int n_steps, double delta_t)
 {
-    int step;
-    for (step = 1; step <= n_steps; step++)
+
+    for (int step = 1; step <= n_steps; step++)
     {
+        vect_t *d_pos = new vect_t[n];
         // Calculate the force, update the states, and then synchronize positions
         for (int i = 0; i < n; i++)
         {
@@ -202,8 +209,13 @@ void nbody_serial(double masses[], vect_t forces[], vect_t pos[], vect_t vel[], 
 
             // Calculate a i-th body position
             const double t_square = delta_t * delta_t;
-            pos[i][X] = pos[i][X] + vel[i][X] * delta_t + a[X] * t_square / 2;
-            pos[i][Y] = pos[i][Y] + vel[i][Y] * delta_t + a[Y] * t_square / 2;
+            d_pos[i][X] = vel[i][X] * delta_t + a[X] * t_square / 2;
+            d_pos[i][Y] = vel[i][Y] * delta_t + a[Y] * t_square / 2;
+        }
+        for (int i = 0; i < n; i++)
+        {
+            pos[i][X] = pos[i][X] + d_pos[i][X];
+            pos[i][Y] = pos[i][Y] + d_pos[i][Y];
         }
 #ifdef DEBUG
         Output_serial(masses, pos, vel, n);
