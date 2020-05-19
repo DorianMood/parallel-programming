@@ -98,6 +98,7 @@ void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t l
     {
         // Synchronize here
         MPI_Barrier(MPI_COMM_WORLD);
+        MPI_Gather(loc_pos, loc_n, MPI_DOUBLE, pos, loc_n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
         // Calculate the force, update the states, and then synchronize positions
         for (int i = 0; i < loc_n; i++)
         {
@@ -140,11 +141,11 @@ void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t l
             loc_pos[i][X] = loc_pos[i][X] + loc_vel[i][X] * delta_t + a[X] * t_square / 2;
             loc_pos[i][Y] = loc_pos[i][Y] + loc_vel[i][Y] * delta_t + a[Y] * t_square / 2;
         }
+    }
 #ifdef DEBUG
         if (step == n_steps)
             Output_parallel(masses, pos, loc_vel, n, loc_n);
 #endif
-    }
 }
 
 // nbody serial implementation
@@ -153,11 +154,6 @@ void nbody_serial(double masses[], vect_t forces[], vect_t pos[], vect_t vel[], 
     int step;
     for (step = 1; step <= n_steps; step++)
     {
-        printf("%d: ", step);
-#ifdef DEBUG
-        if (step == step)
-            Output_serial(masses, pos, vel, n);
-#endif
         // Calculate the force, update the states, and then synchronize positions
         for (int i = 0; i < n; i++)
         {
@@ -200,12 +196,11 @@ void nbody_serial(double masses[], vect_t forces[], vect_t pos[], vect_t vel[], 
             pos[i][X] = pos[i][X] + vel[i][X] * delta_t + a[X] * t_square / 2;
             pos[i][Y] = pos[i][Y] + vel[i][Y] * delta_t + a[Y] * t_square / 2;
         }
-
+    }
 #ifdef DEBUG
         if (step == step)
             Output_serial(masses, pos, vel, n);
 #endif
-    }
 }
 
 int main(int argc, char *argv[])
