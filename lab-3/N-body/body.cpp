@@ -113,14 +113,17 @@ void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t l
                 // Calculate a single force between i-th and j-th bodies
                 vect_t d, f;
 
-                double dividend = G * masses[i] * masses[j];
+                const double dividend = G * masses[i] * masses[j];
 
-                d[X] = abs(loc_pos[i][X] - pos[j][X]);
+                d[X] = loc_pos[j][X] - loc_pos[i][X];
+                d[Y] = loc_pos[j][Y] - loc_pos[i][Y];
+                const double r = sqrt(pow(d[X], 2) + pow(d[Y], 2));
 
-                f[X] = d[X] ? dividend / pow(d[X], 2) : 0;
+                f[X] = r ? dividend / pow(r, 2) : 0;
+                f[Y] = r ? dividend / pow(r, 2) : 0;
 
-                d[Y] = abs(loc_pos[i][Y] - pos[j][Y]);
-                f[Y] = d[Y] ? dividend / pow(d[Y], 2) : 0;
+                f[X] = f[X] * d[X] / r;
+                f[Y] = f[Y] * d[Y] / r;
 
                 loc_forces[i][X] += f[X];
                 loc_forces[i][Y] += f[Y];
@@ -137,7 +140,7 @@ void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t l
             loc_vel[i][Y] = loc_vel[i][Y] + a[Y] * delta_t;
 
             // Calculate a i-th body position
-            double t_square = delta_t * delta_t;
+            const double t_square = delta_t * delta_t;
             loc_pos[i][X] = loc_pos[i][X] + loc_vel[i][X] * delta_t + a[X] * t_square / 2;
             loc_pos[i][Y] = loc_pos[i][Y] + loc_vel[i][Y] * delta_t + a[Y] * t_square / 2;
         }
@@ -153,9 +156,6 @@ void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t l
 // nbody serial implementation
 void nbody_serial(double masses[], vect_t forces[], vect_t pos[], vect_t vel[], int n, int n_steps, double delta_t)
 {
-#if DEBUG
-    Output_serial(masses, pos, vel, n);
-#endif
     int step;
     for (step = 1; step <= n_steps; step++)
     {
@@ -170,16 +170,21 @@ void nbody_serial(double masses[], vect_t forces[], vect_t pos[], vect_t vel[], 
             {
                 if (i == j)
                     continue;
+
                 // Calculate a single force between i-th and j-th bodies
                 vect_t d, f;
 
-                double dividend = G * masses[i] * masses[j];
+                const double dividend = G * masses[i] * masses[j];
 
-                d[X] = abs(pos[i][X] - pos[j][X]);
-                f[X] = d[X] ? dividend / pow(d[X], 2) : 0;
+                d[X] = pos[j][X] - pos[i][X];
+                d[Y] = pos[j][Y] - pos[i][Y];
+                const double r = sqrt(pow(d[X], 2) + pow(d[Y], 2));
 
-                d[Y] = abs(pos[i][Y] - pos[j][Y]);
-                f[Y] = d[Y] ? dividend / pow(d[Y], 2) : 0;
+                f[X] = r ? dividend / pow(r, 2) : 0;
+                f[Y] = r ? dividend / pow(r, 2) : 0;
+
+                f[X] = f[X] * d[X] / r;
+                f[Y] = f[Y] * d[Y] / r;
 
                 forces[i][X] += f[X];
                 forces[i][Y] += f[Y];
@@ -196,14 +201,14 @@ void nbody_serial(double masses[], vect_t forces[], vect_t pos[], vect_t vel[], 
             vel[i][Y] = vel[i][Y] + a[Y] * delta_t;
 
             // Calculate a i-th body position
-            double t_square = delta_t * delta_t;
+            const double t_square = delta_t * delta_t;
             pos[i][X] = pos[i][X] + vel[i][X] * delta_t + a[X] * t_square / 2;
             pos[i][Y] = pos[i][Y] + vel[i][Y] * delta_t + a[Y] * t_square / 2;
         }
-    }
 #ifdef DEBUG
-    Output_serial(masses, pos, vel, n);
+        Output_serial(masses, pos, vel, n);
 #endif
+    }
 }
 
 int main(int argc, char *argv[])
