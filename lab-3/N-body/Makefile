@@ -1,5 +1,5 @@
 CC=mpiCC
-CFLAGS= -O3
+CFLAGS= -O0
 LIBS=-lmpi -lm
 
 nbody: body.cpp

@@ -15,12 +15,6 @@ void Get_args(int argc, char* argv[], int* n_p, int* n_steps_p, double* delta_t_
 void Gen_init_cond(double masses[], vect_t pos[], vect_t loc_vel[], int n, int loc_n);
 void Output_parallel(double masses[], vect_t pos[], vect_t loc_vel[], int n, int loc_n);
 void Output_serial(double masses[], vect_t pos[], vect_t vel[], int n);
+
 void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t loc_pos[], vect_t loc_vel[], int n, int loc_n, int n_steps, double delta_t);
 void nbody_serial(double masses[], vect_t forces[], vect_t pos[], vect_t vel[], int n, int n_steps, double delta_t);
-
-
-
-
-
-
-

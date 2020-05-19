@@ -6,7 +6,7 @@
 
 #include "body.h"
 
-#define G 9.8
+#define DEBUG 1
 
 void Usage(char *prog_name) // Input Description
 {
@@ -96,106 +96,116 @@ void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t l
     int step;
     for (step = 1; step <= n_steps; step++)
     {
+        // Synchronize here
+        MPI_Barrier(MPI_COMM_WORLD);
         // Calculate the force, update the states, and then synchronize positions
+        for (int i = 0; i < loc_n; i++)
+        {
+            // Current force to zero
+            loc_forces[i][X] = 0;
+            loc_forces[i][Y] = 0;
+
+            for (int j = 0; j < n; j++)
+            {
+                if (i == j)
+                    continue;
+                // Calculate a single force between i-th and j-th bodies
+                vect_t d, f;
+
+                double dividend = G * masses[i] * masses[j];
+
+                d[X] = abs(loc_pos[i][X] - loc_pos[j][X]);
+
+                f[X] = d[X] ? dividend / pow(d[X], 2) : 0;
+
+                d[Y] = abs(loc_pos[i][Y] - loc_pos[j][Y]);
+                f[Y] = d[Y] ? dividend / pow(d[Y], 2) : 0;
+
+                loc_forces[i][X] += f[X];
+                loc_forces[i][Y] += f[Y];
+            }
+
+            vect_t a;
+
+            // acceleration
+            a[X] = loc_forces[i][X] / masses[i];
+            a[Y] = loc_forces[i][Y] / masses[i];
+
+            // New vels
+            loc_vel[i][X] = loc_vel[i][X] + a[X] * delta_t;
+            loc_vel[i][Y] = loc_vel[i][Y] + a[Y] * delta_t;
+
+            // Calculate a i-th body position
+            double t_square = delta_t * delta_t;
+            loc_pos[i][X] = loc_pos[i][X] + loc_vel[i][X] * delta_t + a[X] * t_square / 2;
+            loc_pos[i][Y] = loc_pos[i][Y] + loc_vel[i][Y] * delta_t + a[Y] * t_square / 2;
+        }
 #ifdef DEBUG
         if (step == n_steps)
             Output_parallel(masses, pos, loc_vel, n, loc_n);
 #endif
     }
-
-    for (int i = 0; i < loc_n; i++)
-    {
-        // Current force to zero
-        loc_forces[i][X] = 0;
-        loc_forces[i][Y] = 0;
-
-        for (int j = 0; j < n; j++)
-        {
-            // Calculate a single force between i-th and j-th bodies
-            vect_t d, f;
-
-            double dividend = G * masses[i] * masses[j];
-            
-            d[X] = abs(loc_pos[i][X] - loc_pos[j][X]);
-            f[X] = dividend / pow(d[X], 2);
-
-            d[Y] = abs(loc_pos[i][Y] - loc_pos[j][Y]);
-            f[Y] = dividend / pow(d[Y], 2);
-
-            loc_forces[i][X] += f[X];
-            loc_forces[i][Y] += f[Y];
-        }
-
-        vect_t a;
-
-        // acceleration
-        a[X] = loc_forces[i][X] / masses[i];
-        a[Y] = loc_forces[i][Y] / masses[i];
-
-        // New vels
-        loc_vel[i][X] = loc_vel[i][X] + a[X] * delta_t;
-
-        // Calculate a i-th body position
-        double t_square = delta_t * delta_t;
-        loc_pos[i][X] = loc_pos[i][X] + loc_vel[i][X] * delta_t + a[X] * t_square / 2;
-        loc_pos[i][Y] = loc_pos[i][Y] + loc_vel[i][Y] * delta_t + a[Y] * t_square / 2;
-    }
-
 }
 
 // nbody serial implementation
 void nbody_serial(double masses[], vect_t forces[], vect_t pos[], vect_t vel[], int n, int n_steps, double delta_t)
 {
-    /* PUT OR MODIFY YOUR SERIAL CODE IN THIS FUNCTION*/
     int step;
     for (step = 1; step <= n_steps; step++)
     {
-        // Calculate the force, update the states, and then synchronize positions
+        printf("%d: ", step);
 #ifdef DEBUG
-        if (step == n_steps)
+        if (step == step)
+            Output_serial(masses, pos, vel, n);
+#endif
+        // Calculate the force, update the states, and then synchronize positions
+        for (int i = 0; i < n; i++)
+        {
+            // Current force to zero
+            forces[i][X] = 0;
+            forces[i][Y] = 0;
+
+            for (int j = 0; j < n; j++)
+            {
+                if (i == j)
+                    continue;
+                // Calculate a single force between i-th and j-th bodies
+                vect_t d, f;
+
+                double dividend = G * masses[i] * masses[j];
+
+                d[X] = abs(pos[i][X] - pos[j][X]);
+
+                f[X] = d[X] ? dividend / pow(d[X], 2) : 0;
+
+                d[Y] = abs(pos[i][Y] - pos[j][Y]);
+                f[Y] = d[Y] ? dividend / pow(d[Y], 2) : 0;
+
+                forces[i][X] += f[X];
+                forces[i][Y] += f[Y];
+            }
+
+            vect_t a;
+
+            // acceleration
+            a[X] = forces[i][X] / masses[i];
+            a[Y] = forces[i][Y] / masses[i];
+
+            // New vels
+            vel[i][X] = vel[i][X] + a[X] * delta_t;
+            vel[i][Y] = vel[i][Y] + a[Y] * delta_t;
+
+            // Calculate a i-th body position
+            double t_square = delta_t * delta_t;
+            pos[i][X] = pos[i][X] + vel[i][X] * delta_t + a[X] * t_square / 2;
+            pos[i][Y] = pos[i][Y] + vel[i][Y] * delta_t + a[Y] * t_square / 2;
+        }
+
+#ifdef DEBUG
+        if (step == step)
             Output_serial(masses, pos, vel, n);
 #endif
     }
-    /* PUT OR MODIFY YOUR SERIAL CODE IN THIS FUNCTION*/
-
-    for (int i = 0; i < n; i++)
-    {
-        // Current force to zero
-        forces[i][X] = 0;
-        forces[i][Y] = 0;
-
-        for (int j = 0; j < n; j++)
-        {
-            // Calculate a single force between i-th and j-th bodies
-            vect_t d, f;
-
-            double dividend = G * masses[i] * masses[j];
-            
-            d[X] = abs(pos[i][X] - pos[j][X]);
-            f[X] = dividend / pow(d[X], 2);
-
-            d[Y] = abs(pos[i][Y] - pos[j][Y]);
-            f[Y] = dividend / pow(d[Y], 2);
-
-            forces[i][X] += f[X];
-            forces[i][Y] += f[Y];
-        }
-
-        vect_t a;
-
-        // acceleration
-        a[X] = forces[i][X] / masses[i];
-        a[Y] = forces[i][Y] / masses[i];
-
-        // New vels
-        vel[i][X] = vel[i][X] + a[X] * delta_t;
-
-        // Calculate a i-th body position
-        double t_square = delta_t * delta_t;
-        pos[i][X] = pos[i][X] + vel[i][X] * delta_t + a[X] * t_square / 2;
-        pos[i][Y] = pos[i][Y] + vel[i][Y] * delta_t + a[Y] * t_square / 2;
-    }
-
 }
 
 int main(int argc, char *argv[])
