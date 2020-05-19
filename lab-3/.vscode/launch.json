@@ -51,7 +51,7 @@
       "type": "cppdbg",
       "request": "launch",
       "program": "/usr/bin/mpirun",
-      "args": ["-np", "2", "${workspaceFolder}/N-body/nbody", "10", "10", "1"],
+      "args": ["-np", "2", "${workspaceFolder}/N-body/nbody", "4", "1", "1"],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/N-body",
       "environment": [],

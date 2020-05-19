@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.bcc": "json",
+        "*.m": "matlab",
+        "cmath": "cpp"
+    }
+}

@@ -92,13 +92,13 @@ void Output_serial(double masses[], vect_t pos[], vect_t vel[], int n) // output
 // nbody parallel implementation
 void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t loc_pos[], vect_t loc_vel[], int n, int loc_n, int n_steps, double delta_t)
 {
-    /* PUT OR MODIFY YOUR PARALLEL CODE IN THIS FUNCTION*/
+#if DEBUG
+    Output_parallel(masses, pos, loc_vel, n, loc_n);
+#endif
     int step;
     for (step = 1; step <= n_steps; step++)
     {
-        // Synchronize here
-        MPI_Barrier(MPI_COMM_WORLD);
-        MPI_Gather(loc_pos, loc_n, MPI_DOUBLE, pos, loc_n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+        MPI_Scatter(pos, loc_n, vect_mpi_t, loc_pos, loc_n, vect_mpi_t, 0, MPI_COMM_WORLD);
         // Calculate the force, update the states, and then synchronize positions
         for (int i = 0; i < loc_n; i++)
         {
@@ -115,11 +115,11 @@ void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t l
 
                 double dividend = G * masses[i] * masses[j];
 
-                d[X] = abs(loc_pos[i][X] - loc_pos[j][X]);
+                d[X] = abs(loc_pos[i][X] - pos[j][X]);
 
                 f[X] = d[X] ? dividend / pow(d[X], 2) : 0;
 
-                d[Y] = abs(loc_pos[i][Y] - loc_pos[j][Y]);
+                d[Y] = abs(loc_pos[i][Y] - pos[j][Y]);
                 f[Y] = d[Y] ? dividend / pow(d[Y], 2) : 0;
 
                 loc_forces[i][X] += f[X];
@@ -141,16 +141,21 @@ void nbody_parallel(double masses[], vect_t loc_forces[], vect_t pos[], vect_t l
             loc_pos[i][X] = loc_pos[i][X] + loc_vel[i][X] * delta_t + a[X] * t_square / 2;
             loc_pos[i][Y] = loc_pos[i][Y] + loc_vel[i][Y] * delta_t + a[Y] * t_square / 2;
         }
+        // Synchronize here
+        MPI_Gather(loc_pos, loc_n, vect_mpi_t, pos, loc_n, vect_mpi_t, 0, MPI_COMM_WORLD);
     }
 #ifdef DEBUG
-        if (step == n_steps)
-            Output_parallel(masses, pos, loc_vel, n, loc_n);
+    Output_parallel(masses, pos, loc_vel, n, loc_n);
 #endif
+    MPI_Barrier(MPI_COMM_WORLD);
 }
 
 // nbody serial implementation
 void nbody_serial(double masses[], vect_t forces[], vect_t pos[], vect_t vel[], int n, int n_steps, double delta_t)
 {
+#if DEBUG
+    Output_serial(masses, pos, vel, n);
+#endif
     int step;
     for (step = 1; step <= n_steps; step++)
     {
@@ -171,7 +176,6 @@ void nbody_serial(double masses[], vect_t forces[], vect_t pos[], vect_t vel[], 
                 double dividend = G * masses[i] * masses[j];
 
                 d[X] = abs(pos[i][X] - pos[j][X]);
-
                 f[X] = d[X] ? dividend / pow(d[X], 2) : 0;
 
                 d[Y] = abs(pos[i][Y] - pos[j][Y]);
@@ -198,8 +202,7 @@ void nbody_serial(double masses[], vect_t forces[], vect_t pos[], vect_t vel[], 
         }
     }
 #ifdef DEBUG
-        if (step == step)
-            Output_serial(masses, pos, vel, n);
+    Output_serial(masses, pos, vel, n);
 #endif
 }
 
