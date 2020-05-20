@@ -11,8 +11,32 @@ double length(const double *x, const int n)
     double sum = 0;
     for (int i = 0; i < n; i++)
         sum += pow(x[i], 2);
-        
+
     return sqrt(sum);
+}
+
+double vector_dot_product(const double *a, const double *b, const int n)
+{
+    double product = 0;
+    for (int i = 0 ; i < n; i++)
+    {
+        product += a[i] * b[i];
+    }
+    return product;
+}
+
+double* matrix_dot_product(const double *matrix, const double *vector, const int n_rows, const int n_cols)
+{
+    double *product = (double*)malloc(n_rows * sizeof(double));
+    for (int i = 0; i < n_rows; i++)
+    {
+        product[i] = 0;
+        for (int j = 0; j < n_cols; j++)
+        {
+            product[i] += matrix[i * n_rows + j] * vector[j];
+        }
+    }
+    return product;
 }
 
 // Solve Ax = b for x, using the Conjugate Gradient method.
@@ -28,43 +52,66 @@ double *conjugate_gradient_serial(const double *A, const double *b, const int N,
 
     // Conjugate gradient method implementation
 
-    double *r, *p;
+    // x = 0
+    // r = b
+    // rho[0] = length(r)^2
+    double *r, *p, *rho;
+    p = (double *)malloc(N * sizeof(double));
 
+    // x = 0
+    for (int i = 0; i < N; i++)
+        x[i] = 0;
+
+    // r = b
     r = malloc(N * sizeof(double));
     for (int i = 0; i < N; i++)
         r[i] = b[i];
-    
-    p = malloc(N * sizeof(double));
-    p[0] = pow(length(r, N), 2);
+
+    // rho[0] = length(r) ^ 2
+    rho = malloc(N * sizeof(double));
+    rho[0] = pow(length(r, N), 2);
 
     for (int k = 1; k < max_steps; k++)
     {
-        if (p[k - 1] <= length(b, N))
+        // threshhold
+        if (sqrt(rho[k - 1]) <= tol * length(b, N))
             break;
 
         if (k == 1)
+        {
+            // p = r
             for (int i = 0; i < N; i++)
+            {
                 p[i] = r[i];
+            }
+        }
         else
+        {
+            // p = r + (rho[k - 1] / rho[k - 2]) * p
             for (int i = 0; i < N; i++)
+            {
                 p[i] = r[i] + (p[k - 1] / p[k - 2]) * p[i];
-        
-        double *omega, *alpha;
+            }
+        }
+
+
+        // I need dot product:
+        // 1. matrix and vecor
+        // 2. vector and vector
+        double *omega, alpha = 0;
         omega = malloc(N * sizeof(double));
-        alpha = malloc(N * sizeof(double));
 
         // omega = A * p;
-        for (int i = 0; i < N; i++)
-            omega[i] = A[i] * p[i];
+        omega = matrix_dot_product(A, b, N, N);
+
         // alpha = p[k - 1] / pT * omega
-        for (int i = 0; i < N; i++)
-            alpha[i] = p[k - 1] / p[i] * omega[i];
+        alpha = rho[k - 1] / vector_dot_product(p, omega, N);
         // x = x + alpha * p;
         for (int i = 0; i < N; i++)
-            x[i] = x[i] + alpha[i] * p[i];
+            x[i] = x[i] + alpha * p[i];
         // r = r - a * omega;
         for (int i = 0; i < N; i++)
-            r[i] = r[i] - alpha[i] * omega[i];
+            r[i] = r[i] - alpha * omega[i];
 
         p[k] = pow(length(r, N), 2);
     }
@@ -79,52 +126,70 @@ void conjugate_gradient_parallel(process_data row, equation_data equation, int N
 
     x = &(equation.x_star[0]);
 
-    printf("<%d>", row.rank);
-
     // Conjugate gradient method implementation
 
-    double *r, *p;
+    // x = 0
+    // r = b
+    // rho[0] = length(r)^2
+    double *r, *p, *rho;
+    p = (double *)malloc(N * sizeof(double));
 
+    // x = 0
+    for (int i = 0; i < N; i++)
+        x[i] = 0;
+
+    // r = b
     r = malloc(N * sizeof(double));
     for (int i = 0; i < N; i++)
         r[i] = equation.b[i];
-    
-    p = malloc(N * sizeof(double));
-    p[0] = pow(length(r, N), 2);
+
+    // rho[0] = length(r) ^ 2
+    rho = malloc(N * sizeof(double));
+    rho[0] = pow(length(r, N), 2);
 
     for (int k = 1; k < max_steps; k++)
     {
-        if (p[k - 1] <= length(equation.b, N))
+        // threshhold
+        if (sqrt(rho[k - 1]) <= tol * length(equation.b, N))
             break;
 
         if (k == 1)
+        {
+            // p = r
             for (int i = 0; i < N; i++)
+            {
                 p[i] = r[i];
+            }
+        }
         else
+        {
+            // p = r + (rho[k - 1] / rho[k - 2]) * p
             for (int i = 0; i < N; i++)
+            {
                 p[i] = r[i] + (p[k - 1] / p[k - 2]) * p[i];
-        
-        double *omega, *alpha;
+            }
+        }
+
+        // I need dot product:
+        // 1. matrix and vecor
+        // 2. vector and vector
+        double *omega, alpha = 0;
         omega = malloc(N * sizeof(double));
-        alpha = malloc(N * sizeof(double));
 
         // omega = A * p;
-        for (int i = 0; i < N; i++)
-            omega[i] = equation.A[i] * p[i];
+        omega = matrix_dot_product(equation.A, equation.b, equation.N, equation.N);
+        
         // alpha = p[k - 1] / pT * omega
-        for (int i = 0; i < N; i++)
-            alpha[i] = p[k - 1] / p[i] * omega[i];
+        alpha = rho[k - 1] / vector_dot_product(p, omega, equation.N);
         // x = x + alpha * p;
         for (int i = 0; i < N; i++)
-            x[i] = x[i] + alpha[i] * p[i];
+            x[i] = x[i] + alpha * p[i];
         // r = r - a * omega;
         for (int i = 0; i < N; i++)
-            r[i] = r[i] - alpha[i] * omega[i];
+            r[i] = r[i] - alpha * omega[i];
 
         p[k] = pow(length(r, N), 2);
     }
-
-    equation.x = x;
 
     return;
 }
