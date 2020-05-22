@@ -14,10 +14,10 @@ typedef struct
 
 typedef struct
 {
-    int N;
-    int Np;
+    int N; // Matrix dimension
+    int Np; // Number of process
 
-    int rank;
+    int rank; // Rank of this communicator
     int coord; // Coordinate of this row in the 1D grid
     int displ; // The displacement of this row from the top
 
