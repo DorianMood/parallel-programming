@@ -61,3 +61,9 @@ if [ $LAB == "lab-2" ]; then
   ./tests.sh
   cd ../
 fi
+
+if [ $LAB == "lab-3" ]; then
+  cd ${PWD}/$LAB/
+  ./tests.sh
+  cd ../
+fi
