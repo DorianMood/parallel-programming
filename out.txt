@@ -1,0 +1,666 @@
+BUILDING K-MEANS...BUILDING SUCCESSFUL.
+sequential
+number of Clusters: 2
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.450433 s
+parallel
+number of Clusters: 2
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.175666 s
+number of Clusters: 2
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.186463 s
+number of Clusters: 2
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.185561 s
+number of Clusters: 2
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.176841 s
+number of Clusters: 2
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.212138 s
+number of Clusters: 2
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.184266 s
+number of Clusters: 2
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.175526 s
+sequential
+number of Clusters: 4
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 1.709778 s
+parallel
+number of Clusters: 4
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.486853 s
+number of Clusters: 4
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.488303 s
+number of Clusters: 4
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.507258 s
+number of Clusters: 4
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.490017 s
+number of Clusters: 4
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.506890 s
+number of Clusters: 4
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.486268 s
+number of Clusters: 4
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.607376 s
+sequential
+number of Clusters: 8
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 2.764209 s
+parallel
+number of Clusters: 8
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.536222 s
+number of Clusters: 8
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.535683 s
+number of Clusters: 8
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.556915 s
+number of Clusters: 8
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.577945 s
+number of Clusters: 8
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.577272 s
+number of Clusters: 8
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.570225 s
+number of Clusters: 8
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.547281 s
+sequential
+number of Clusters: 16
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 3.577741 s
+parallel
+number of Clusters: 16
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.497203 s
+number of Clusters: 16
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.503871 s
+number of Clusters: 16
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.525975 s
+number of Clusters: 16
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.495956 s
+number of Clusters: 16
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.515700 s
+number of Clusters: 16
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.506416 s
+number of Clusters: 16
+number of Objects: 10000
+number of Attributes per Object: 24
+
+Time for process: 0.530648 s
+sequential
+number of Clusters: 2
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 4.672555 s
+parallel
+number of Clusters: 2
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 1.158149 s
+number of Clusters: 2
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 1.158377 s
+number of Clusters: 2
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 1.169462 s
+number of Clusters: 2
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 1.142499 s
+number of Clusters: 2
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 1.162270 s
+number of Clusters: 2
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 1.141797 s
+number of Clusters: 2
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 1.161920 s
+sequential
+number of Clusters: 4
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 19.853691 s
+parallel
+number of Clusters: 4
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 3.613851 s
+number of Clusters: 4
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 3.639464 s
+number of Clusters: 4
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 3.666576 s
+number of Clusters: 4
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 3.625387 s
+number of Clusters: 4
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 3.604932 s
+number of Clusters: 4
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 3.606010 s
+number of Clusters: 4
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 3.655803 s
+sequential
+number of Clusters: 8
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 70.911350 s
+parallel
+number of Clusters: 8
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 9.659603 s
+number of Clusters: 8
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 9.691284 s
+number of Clusters: 8
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 9.666199 s
+number of Clusters: 8
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 9.681634 s
+number of Clusters: 8
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 9.718919 s
+number of Clusters: 8
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 9.717578 s
+number of Clusters: 8
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 9.562902 s
+sequential
+number of Clusters: 16
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 133.594934 s
+parallel
+number of Clusters: 16
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 12.703686 s
+number of Clusters: 16
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 12.696940 s
+number of Clusters: 16
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 12.693408 s
+number of Clusters: 16
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 12.684984 s
+number of Clusters: 16
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 12.709348 s
+number of Clusters: 16
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 12.642916 s
+number of Clusters: 16
+number of Objects: 100000
+number of Attributes per Object: 24
+
+Time for process: 12.638879 s
+sequential
+number of Clusters: 2
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 41.824071 s
+parallel
+number of Clusters: 2
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 9.827351 s
+number of Clusters: 2
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 9.731593 s
+number of Clusters: 2
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 9.848498 s
+number of Clusters: 2
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 9.727421 s
+number of Clusters: 2
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 9.587131 s
+number of Clusters: 2
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 9.584045 s
+number of Clusters: 2
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 9.636313 s
+sequential
+number of Clusters: 4
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 165.561119 s
+parallel
+number of Clusters: 4
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 27.910816 s
+number of Clusters: 4
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 27.808449 s
+number of Clusters: 4
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 27.815194 s
+number of Clusters: 4
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 28.184266 s
+number of Clusters: 4
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 28.072685 s
+number of Clusters: 4
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 28.427419 s
+number of Clusters: 4
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 27.681767 s
+sequential
+number of Clusters: 8
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 438.868745 s
+parallel
+number of Clusters: 8
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 52.107384 s
+number of Clusters: 8
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 51.807043 s
+number of Clusters: 8
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 51.958091 s
+number of Clusters: 8
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 53.511570 s
+number of Clusters: 8
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 52.573055 s
+number of Clusters: 8
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 54.149124 s
+number of Clusters: 8
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 54.265499 s
+sequential
+number of Clusters: 16
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 1444.990222 s
+parallel
+number of Clusters: 16
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 127.823018 s
+number of Clusters: 16
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 128.186673 s
+number of Clusters: 16
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 127.932668 s
+number of Clusters: 16
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 128.062315 s
+number of Clusters: 16
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 128.238981 s
+number of Clusters: 16
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 128.529869 s
+number of Clusters: 16
+number of Objects: 1000000
+number of Attributes per Object: 24
+
+Time for process: 128.530828 s
+BUILDING OCEAN...BUILDING SUCCESSFUL.
+18 4 Total Execution time: 1590 ns
+18 4 1 Total Execution time: 2585350 ns
+18 4 2 Total Execution time: 2587035 ns
+18 4 4 Total Execution time: 2571663 ns
+18 4 8 Total Execution time: 2571494 ns
+18 4 16 Total Execution time: 2554586 ns
+18 4 32 Total Execution time: 2559310 ns
+18 4 64 Total Execution time: 3831858 ns
+18 16 Total Execution time: 5048 ns
+18 16 1 Total Execution time: 2623939 ns
+18 16 2 Total Execution time: 2634704 ns
+18 16 4 Total Execution time: 2680177 ns
+18 16 8 Total Execution time: 2752532 ns
+18 16 16 Total Execution time: 2738871 ns
+18 16 32 Total Execution time: 2440699 ns
+18 16 64 Total Execution time: 2639130 ns
+18 64 Total Execution time: 18970 ns
+18 64 1 Total Execution time: 3353080 ns
+18 64 2 Total Execution time: 3040603 ns
+18 64 4 Total Execution time: 3187607 ns
+18 64 8 Total Execution time: 2873455 ns
+18 64 16 Total Execution time: 3119637 ns
+18 64 32 Total Execution time: 3485883 ns
+18 64 64 Total Execution time: 3146380 ns
+18 256 Total Execution time: 74507 ns
+18 256 1 Total Execution time: 5486460 ns
+18 256 2 Total Execution time: 5866599 ns
+18 256 4 Total Execution time: 4944010 ns
+18 256 8 Total Execution time: 5130849 ns
+18 256 16 Total Execution time: 6006905 ns
+18 256 32 Total Execution time: 4939660 ns
+18 256 64 Total Execution time: 5513369 ns
+66 4 Total Execution time: 22321 ns
+66 4 1 Total Execution time: 2730566 ns
+66 4 2 Total Execution time: 2799492 ns
+66 4 4 Total Execution time: 2851380 ns
+66 4 8 Total Execution time: 2822628 ns
+66 4 16 Total Execution time: 2815076 ns
+66 4 32 Total Execution time: 2823059 ns
+66 4 64 Total Execution time: 2818578 ns
+66 16 Total Execution time: 74132 ns
+66 16 1 Total Execution time: 2644055 ns
+66 16 2 Total Execution time: 2657389 ns
+66 16 4 Total Execution time: 2630372 ns
+66 16 8 Total Execution time: 2866303 ns
+66 16 16 Total Execution time: 2658380 ns
+66 16 32 Total Execution time: 2674612 ns
+66 16 64 Total Execution time: 2685028 ns
+66 64 Total Execution time: 286103 ns
+66 64 1 Total Execution time: 6079825 ns
+66 64 2 Total Execution time: 5929962 ns
+66 64 4 Total Execution time: 6207864 ns
+66 64 8 Total Execution time: 6608722 ns
+66 64 16 Total Execution time: 6998964 ns
+66 64 32 Total Execution time: 6348746 ns
+66 64 64 Total Execution time: 6976984 ns
+66 256 Total Execution time: 1131608 ns
+66 256 1 Total Execution time: 20513041 ns
+66 256 2 Total Execution time: 15232721 ns
+66 256 4 Total Execution time: 19164974 ns
+66 256 8 Total Execution time: 19526436 ns
+66 256 16 Total Execution time: 15163523 ns
+66 256 32 Total Execution time: 19287010 ns
+66 256 64 Total Execution time: 19929874 ns
+258 4 Total Execution time: 348237 ns
+258 4 1 Total Execution time: 2830068 ns
+258 4 2 Total Execution time: 3262518 ns
+258 4 4 Total Execution time: 3100769 ns
+258 4 8 Total Execution time: 3259080 ns
+258 4 16 Total Execution time: 3065675 ns
+258 4 32 Total Execution time: 3031682 ns
+258 4 64 Total Execution time: 3002296 ns
+258 16 Total Execution time: 1163990 ns
+258 16 1 Total Execution time: 3268831 ns
+258 16 2 Total Execution time: 3118203 ns
+258 16 4 Total Execution time: 2770657 ns
+258 16 8 Total Execution time: 3275020 ns
+258 16 16 Total Execution time: 3283594 ns
+258 16 32 Total Execution time: 3246310 ns
+258 16 64 Total Execution time: 2911323 ns
+258 64 Total Execution time: 4461127 ns
+258 64 1 Total Execution time: 5987837 ns
+258 64 2 Total Execution time: 6770543 ns
+258 64 4 Total Execution time: 6178812 ns
+258 64 8 Total Execution time: 5457616 ns
+258 64 16 Total Execution time: 6946517 ns
+258 64 32 Total Execution time: 5934233 ns
+258 64 64 Total Execution time: 6491826 ns
+258 256 Total Execution time: 16986550 ns
+258 256 1 Total Execution time: 16574175 ns
+258 256 2 Total Execution time: 12097409 ns
+258 256 4 Total Execution time: 18697730 ns
+258 256 8 Total Execution time: 22333924 ns
+258 256 16 Total Execution time: 25678753 ns
+258 256 32 Total Execution time: 15328482 ns
+258 256 64 Total Execution time: 32285741 ns
+1026 4 Total Execution time: 8065074 ns
+1026 4 1 Total Execution time: 28214162 ns
+1026 4 2 Total Execution time: 27168128 ns
+1026 4 4 Total Execution time: 11691207 ns
+1026 4 8 Total Execution time: 27788032 ns
+1026 4 16 Total Execution time: 27250114 ns
+1026 4 32 Total Execution time: 26842761 ns
+1026 4 64 Total Execution time: 26982921 ns
+1026 16 Total Execution time: 27254669 ns
+1026 16 1 Total Execution time: 28607589 ns
+1026 16 2 Total Execution time: 28403303 ns
+1026 16 4 Total Execution time: 30052291 ns
+1026 16 8 Total Execution time: 28736447 ns
+1026 16 16 Total Execution time: 28434359 ns
+1026 16 32 Total Execution time: 27127291 ns
+1026 16 64 Total Execution time: 27216320 ns
+1026 64 Total Execution time: 103103053 ns
+1026 64 1 Total Execution time: 49655205 ns
+1026 64 2 Total Execution time: 47118730 ns
+1026 64 4 Total Execution time: 49616308 ns
+1026 64 8 Total Execution time: 61806010 ns
+1026 64 16 Total Execution time: 60312225 ns
+1026 64 32 Total Execution time: 52075903 ns
+1026 64 64 Total Execution time: 50759673 ns
+1026 256 Total Execution time: 412127855 ns
+1026 256 1 Total Execution time: 160572873 ns
+1026 256 2 Total Execution time: 139056074 ns
+1026 256 4 Total Execution time: 145515920 ns
+1026 256 8 Total Execution time: 191016085 ns
+1026 256 16 Total Execution time: 155696662 ns
+1026 256 32 Total Execution time: 127435218 ns
+1026 256 64 Total Execution time: 160824296 ns
+4098 4 Total Execution time: 321901133 ns
+4098 4 1 Total Execution time: 266362642 ns
+4098 4 2 Total Execution time: 209609769 ns
+4098 4 4 Total Execution time: 317242419 ns
+4098 4 8 Total Execution time: 300513811 ns
+4098 4 16 Total Execution time: 287377463 ns
+4098 4 32 Total Execution time: 207368258 ns
+4098 4 64 Total Execution time: 358279782 ns
+4098 16 Total Execution time: 1189920011 ns
+4098 16 1 Total Execution time: 382314249 ns
+4098 16 2 Total Execution time: 393686300 ns
+4098 16 4 Total Execution time: 387360722 ns
+4098 16 8 Total Execution time: 397912971 ns
+4098 16 16 Total Execution time: 379217539 ns
+4098 16 32 Total Execution time: 381966210 ns
+4098 16 64 Total Execution time: 378645856 ns
+4098 64 Total Execution time: 4785655425 ns
+4098 64 1 Total Execution time: 1075695319 ns
+4098 64 2 Total Execution time: 1087305210 ns
+4098 64 4 Total Execution time: 1087834093 ns
+4098 64 8 Total Execution time: 1091728858 ns
+4098 64 16 Total Execution time: 1095399214 ns
+4098 64 32 Total Execution time: 1093685715 ns
+4098 64 64 Total Execution time: 1095101181 ns
+4098 256 Total Execution time: 19554420404 ns
+4098 256 1 Total Execution time: 2949919886 ns
+4098 256 2 Total Execution time: 2940297412 ns
+4098 256 4 Total Execution time: 3701003897 ns
+4098 256 8 Total Execution time: 3043584503 ns
+4098 256 16 Total Execution time: 3070726703 ns
+4098 256 32 Total Execution time: 3529019880 ns
+4098 256 64 Total Execution time: 2967264402 ns

@@ -1,5 +1,5 @@
 #!/bin/bash
-
+'''
 echo -ne "BUILDING CG..."
 cd ./CG
 make clean
@@ -23,7 +23,7 @@ for n in 1024 2048 4096 8192; do
 done
 
 cd ..
-
+'''
 echo -ne "BUILDING N-BODY..."
 cd ./N-body
 make clean
@@ -37,10 +37,10 @@ fi
 
 # Run tests for N-BODY
 for nParticle in 128 256 512 1024; do
-    for timesteps in 50 100 200 500; do
+    for nTimestep in 50 100 200 500; do
         for nthreads in 1 2 4 8 16; do
             echo -n "$nthreads $nParticle $nTimestep"
-            mpirun -np $nthreads ./nbody $nParticle $nTimestep 1
+            mpiexec -n $nthreads ./nbody $nParticle $nTimestep 1
         done
     done
 done;

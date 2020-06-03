@@ -1,0 +1,491 @@
+BUILDING CG...rm -f cg
+BUILDING SUCCESSFUL.
+1 1024 50Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.75162757513882e-01
+Generate time: 0.026494 s
+Sequential solution time: 0.001097 s
+Parallel solution time: 0.001092 s
+2 1024 50Sequential max error: 8.64880677972778e-02
+Parallel max error: 9.61570990707020e-01
+Generate time: 0.020194 s
+Sequential solution time: 0.001138 s
+Parallel solution time: 0.000700 s
+4 1024 50Sequential max error: 8.68559644553044e-01
+Parallel max error: 1.34250906769817e-02
+Generate time: 0.008722 s
+Sequential solution time: 0.053081 s
+Parallel solution time: 0.015639 s
+8 1024 50Sequential max error: 8.77516270279342e-01
+Parallel max error: 2.06256588258725e-22
+Generate time: 0.005281 s
+Sequential solution time: 0.064684 s
+Parallel solution time: 0.010860 s
+16 1024 50Sequential max error: 8.70145581877519e-01
+Parallel max error: 2.51703463069649e-11
+Generate time: 0.002681 s
+Sequential solution time: 0.001108 s
+Parallel solution time: 0.005604 s
+1 1024 100Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.70410260128084e-01
+Generate time: 0.027865 s
+Sequential solution time: 0.001135 s
+Parallel solution time: 0.001094 s
+2 1024 100Sequential max error: 9.29462509007120e-02
+Parallel max error: 9.64926235227064e-01
+Generate time: 0.016466 s
+Sequential solution time: 0.001103 s
+Parallel solution time: 0.000582 s
+4 1024 100Sequential max error: 8.67396678688340e-01
+Parallel max error: 1.34091038181672e-02
+Generate time: 0.008653 s
+Sequential solution time: 0.107702 s
+Parallel solution time: 0.031628 s
+8 1024 100Sequential max error: 8.73464399412133e-01
+Parallel max error: 6.10979755443084e-23
+Generate time: 0.004984 s
+Sequential solution time: 0.130973 s
+Parallel solution time: 0.021961 s
+16 1024 100Sequential max error: 8.69696370414382e-01
+Parallel max error: 4.98818782510253e-11
+Generate time: 0.002387 s
+Sequential solution time: 0.001158 s
+Parallel solution time: 0.007571 s
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 13084 RUNNING AT gpu9
+=   EXIT CODE: 6
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
+1 1024 200Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.70744991444616e-01
+Generate time: 0.034084 s
+Sequential solution time: 0.001357 s
+Parallel solution time: 0.001323 s
+2 1024 200Sequential max error: 9.04747080146640e-02
+Parallel max error: 9.57999731644465e-01
+Generate time: 0.021986 s
+Sequential solution time: 0.001420 s
+Parallel solution time: 0.000719 s
+4 1024 200Sequential max error: 8.64439567146146e-01
+Parallel max error: 1.29515916868432e-02
+Generate time: 0.011070 s
+Sequential solution time: 0.001132 s
+Parallel solution time: 0.076955 s
+8 1024 200
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 13181 RUNNING AT gpu9
+=   EXIT CODE: 134
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
+16 1024 200Sequential max error: 8.67595395324398e-01
+Parallel max error: 2.24629571170160e-11
+Generate time: 0.002403 s
+Sequential solution time: 0.001106 s
+Parallel solution time: 0.007505 s
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 13211 RUNNING AT gpu9
+=   EXIT CODE: 6
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
+1 1024 500Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.77372064356957e-01
+Generate time: 0.027350 s
+Sequential solution time: 0.001108 s
+Parallel solution time: 0.001092 s
+2 1024 500Sequential max error: 8.69565868169007e-02
+Parallel max error: 9.60196742037390e-01
+Generate time: 0.016978 s
+Sequential solution time: 0.001104 s
+Parallel solution time: 0.000643 s
+4 1024 500Sequential max error: 8.65419970216631e-01
+Parallel max error: 1.33736966812888e-02
+Generate time: 0.008654 s
+Sequential solution time: 0.001141 s
+Parallel solution time: 0.082034 s
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 13291 RUNNING AT gpu9
+=   EXIT CODE: 134
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
+8 1024 500
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 13311 RUNNING AT gpu9
+=   EXIT CODE: 134
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
+16 1024 500Sequential max error: 8.73080546733501e-01
+Parallel max error: 1.64593759812993e-11
+Generate time: 0.002679 s
+Sequential solution time: 0.001159 s
+Parallel solution time: 0.009031 s
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 13357 RUNNING AT gpu9
+=   EXIT CODE: 6
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
+1 2048 50Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.74765479568844e-01
+Generate time: 0.120887 s
+Sequential solution time: 0.005246 s
+Parallel solution time: 0.004724 s
+2 2048 50Sequential max error: 8.33967868508035e-02
+Parallel max error: 9.57976966562056e-01
+Generate time: 0.074248 s
+Sequential solution time: 0.005104 s
+Parallel solution time: 0.002291 s
+4 2048 50Sequential max error: 8.66566783878680e-01
+Parallel max error: 6.61992750100208e-03
+Generate time: 0.036769 s
+Sequential solution time: 0.229976 s
+Parallel solution time: 0.058985 s
+8 2048 50Sequential max error: 8.71804705967103e-01
+Parallel max error: 1.30203147562654e-44
+Generate time: 0.018815 s
+Sequential solution time: 0.005207 s
+Parallel solution time: 0.032416 s
+16 2048 50Sequential max error: 8.75396680099209e-01
+Parallel max error: 1.25453522193406e-22
+Generate time: 0.012545 s
+Sequential solution time: 0.240357 s
+Parallel solution time: 0.024173 s
+1 2048 100Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.70412367114230e-01
+Generate time: 0.151166 s
+Sequential solution time: 0.005976 s
+Parallel solution time: 0.005530 s
+2 2048 100Sequential max error: 9.17402018266945e-02
+Parallel max error: 9.62181628511160e-01
+Generate time: 0.066204 s
+Sequential solution time: 0.004932 s
+Parallel solution time: 0.002336 s
+4 2048 100Sequential max error: 8.73861793141049e-01
+Parallel max error: 6.59659251414501e-03
+Generate time: 0.044957 s
+Sequential solution time: 0.493832 s
+Parallel solution time: 0.142623 s
+8 2048 100Sequential max error: 8.70520132438788e-01
+Parallel max error: 3.72062293063864e-45
+Generate time: 0.018272 s
+Sequential solution time: 0.004891 s
+Parallel solution time: 0.063512 s
+16 2048 100Sequential max error: 8.71836236951249e-01
+Parallel max error: 2.22222877803274e-22
+Generate time: 0.012297 s
+Sequential solution time: 0.004988 s
+Parallel solution time: 0.045757 s
+1 2048 200Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.77613602234286e-01
+Generate time: 0.113469 s
+Sequential solution time: 0.005059 s
+Parallel solution time: 0.004693 s
+2 2048 200Sequential max error: 8.96617421231946e-02
+Parallel max error: 9.61886016187609e-01
+Generate time: 0.067194 s
+Sequential solution time: 0.004848 s
+Parallel solution time: 0.002418 s
+4 2048 200Sequential max error: 8.66550856243667e-01
+Parallel max error: 6.67601385893971e-03
+Generate time: 0.035336 s
+Sequential solution time: 0.936884 s
+Parallel solution time: 0.258683 s
+8 2048 200Sequential max error: 8.68963540478151e-01
+Parallel max error: 1.32162782838590e-44
+Generate time: 0.021587 s
+Sequential solution time: 0.005062 s
+Parallel solution time: 0.156350 s
+16 2048 200
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 13778 RUNNING AT gpu9
+=   EXIT CODE: 134
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
+1 2048 500Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.74513006245764e-01
+Generate time: 0.116098 s
+Sequential solution time: 0.004822 s
+Parallel solution time: 0.004620 s
+2 2048 500Sequential max error: 8.38246247947498e-02
+Parallel max error: 9.53741586371423e-01
+Generate time: 0.074530 s
+Sequential solution time: 0.005037 s
+Parallel solution time: 0.002408 s
+4 2048 500Sequential max error: 8.68986652846879e-01
+Parallel max error: 6.58005002839688e-03
+Generate time: 0.035369 s
+Sequential solution time: 0.005116 s
+Parallel solution time: 0.591647 s
+8 2048 500Sequential max error: 8.72093877439879e-01
+Parallel max error: 2.30510576819866e-44
+Generate time: 0.020003 s
+Sequential solution time: 0.005001 s
+Parallel solution time: 0.200709 s
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 13884 RUNNING AT gpu9
+=   EXIT CODE: 6
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
+16 2048 500
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 13924 RUNNING AT gpu9
+=   EXIT CODE: 6
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
+1 4096 50Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.71520470754914e-01
+Generate time: 0.511949 s
+Sequential solution time: 0.020289 s
+Parallel solution time: 0.019168 s
+2 4096 50Sequential max error: 8.32237519930521e-02
+Parallel max error: 9.53438426015827e-01
+Generate time: 0.359689 s
+Sequential solution time: 0.020416 s
+Parallel solution time: 0.011349 s
+4 4096 50Sequential max error: 8.70181611320843e-01
+Parallel max error: 3.29854662781814e-03
+Generate time: 0.150890 s
+Sequential solution time: 0.966442 s
+Parallel solution time: 0.257888 s
+8 4096 50Sequential max error: 8.71213391996840e-01
+Parallel max error: 5.61198663459944e-90
+Generate time: 0.082948 s
+Sequential solution time: 0.984096 s
+Parallel solution time: 0.151711 s
+16 4096 50Sequential max error: 8.70022539614640e-01
+Parallel max error: 3.80149472040379e-42
+Generate time: 0.047117 s
+Sequential solution time: 0.020455 s
+Parallel solution time: 0.129244 s
+1 4096 100Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.73566252366470e-01
+Generate time: 0.606031 s
+Sequential solution time: 0.020661 s
+Parallel solution time: 0.020231 s
+2 4096 100Sequential max error: 8.79114744893164e-02
+Parallel max error: 9.58957789591314e-01
+Generate time: 0.354762 s
+Sequential solution time: 0.023252 s
+Parallel solution time: 0.011318 s
+4 4096 100Sequential max error: 8.69367187177722e-01
+Parallel max error: 3.29343524249671e-03
+Generate time: 0.152215 s
+Sequential solution time: 2.002962 s
+Parallel solution time: 0.564006 s
+8 4096 100Sequential max error: 0.00000000000000e+00
+Parallel max error: 0.00000000000000e+00
+Generate time: 0.080300 s
+Sequential solution time: 2.019745 s
+Parallel solution time: 0.268887 s
+16 4096 100Sequential max error: 8.71197587057460e-01
+Parallel max error: 3.32170158254340e-45
+Generate time: 0.051372 s
+Sequential solution time: 0.020304 s
+Parallel solution time: 0.174958 s
+1 4096 200Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.76735501325796e-01
+Generate time: 0.584516 s
+Sequential solution time: 0.019764 s
+Parallel solution time: 0.018916 s
+2 4096 200Sequential max error: 7.73696835383682e-02
+Parallel max error: 9.49711008973999e-01
+Generate time: 0.348992 s
+Sequential solution time: 0.020277 s
+Parallel solution time: 0.011409 s
+4 4096 200Sequential max error: 8.69015713258584e-01
+Parallel max error: 3.29979100655399e-03
+Generate time: 0.157327 s
+Sequential solution time: 4.178425 s
+Parallel solution time: 1.022974 s
+8 4096 200Sequential max error: 8.69650518326987e-01
+Parallel max error: 2.58708009088097e-89
+Generate time: 0.102526 s
+Sequential solution time: 4.086127 s
+Parallel solution time: 0.824200 s
+16 4096 200Sequential max error: 0.00000000000000e+00
+Parallel max error: 0.00000000000000e+00
+Generate time: 0.044440 s
+Sequential solution time: 0.019924 s
+Parallel solution time: 0.428374 s
+1 4096 500Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.73765580749240e-01
+Generate time: 0.589900 s
+Sequential solution time: 0.020221 s
+Parallel solution time: 0.019372 s
+2 4096 500Sequential max error: 9.05556346756834e-02
+Parallel max error: 9.59944806708553e-01
+Generate time: 0.302773 s
+Sequential solution time: 0.020839 s
+Parallel solution time: 0.009668 s
+4 4096 500Sequential max error: 8.71536326537027e-01
+Parallel max error: 3.23981979444979e-03
+Generate time: 0.156170 s
+Sequential solution time: 10.309030 s
+Parallel solution time: 2.701503 s
+8 4096 500Sequential max error: 0.00000000000000e+00
+Parallel max error: 0.00000000000000e+00
+Generate time: 0.105687 s
+Sequential solution time: 0.020172 s
+Parallel solution time: 2.152824 s
+16 4096 500
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 14855 RUNNING AT gpu9
+=   EXIT CODE: 134
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
+1 8192 50Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.72323222362808e-01
+Generate time: 2.675859 s
+Sequential solution time: 0.080001 s
+Parallel solution time: 0.075763 s
+2 8192 50Sequential max error: 8.26427042832678e-02
+Parallel max error: 9.53202439586560e-01
+Generate time: 1.589966 s
+Sequential solution time: 0.081321 s
+Parallel solution time: 0.043286 s
+4 8192 50Sequential max error: 8.69834558867433e-01
+Parallel max error: 1.67009277717845e-03
+Generate time: 0.713420 s
+Sequential solution time: 0.115661 s
+Parallel solution time: 0.941259 s
+8 8192 50Sequential max error: 8.72104471609848e-01
+Parallel max error: 5.54834177608038e-181
+Generate time: 0.450067 s
+Sequential solution time: 0.081258 s
+Parallel solution time: 0.588947 s
+16 8192 50Sequential max error: 8.69769928780492e-01
+Parallel max error: 6.72180835765239e-90
+Generate time: 0.236884 s
+Sequential solution time: 4.089985 s
+Parallel solution time: 0.451389 s
+1 8192 100Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.71476955391591e-01
+Generate time: 2.515906 s
+Sequential solution time: 0.079245 s
+Parallel solution time: 0.076749 s
+2 8192 100Sequential max error: 8.84220728547629e-02
+Parallel max error: 9.58996286237845e-01
+Generate time: 1.379246 s
+Sequential solution time: 0.080449 s
+Parallel solution time: 0.051972 s
+4 8192 100Sequential max error: 8.70954670574778e-01
+Parallel max error: 1.64655698257827e-03
+Generate time: 0.710624 s
+Sequential solution time: 0.080061 s
+Parallel solution time: 2.066156 s
+8 8192 100Sequential max error: 8.70495475214430e-01
+Parallel max error: 0.00000000000000e+00
+Generate time: 0.421034 s
+Sequential solution time: 0.081230 s
+Parallel solution time: 1.209300 s
+16 8192 100Sequential max error: 0.00000000000000e+00
+Parallel max error: 0.00000000000000e+00
+Generate time: 0.241469 s
+Sequential solution time: 7.996173 s
+Parallel solution time: 1.086230 s
+1 8192 200Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.72187752359945e-01
+Generate time: 2.514162 s
+Sequential solution time: 0.079601 s
+Parallel solution time: 0.076457 s
+2 8192 200Sequential max error: 8.59613360622298e-02
+Parallel max error: 9.55864276336406e-01
+Generate time: 1.600972 s
+Sequential solution time: 0.080741 s
+Parallel solution time: 0.040649 s
+4 8192 200Sequential max error: 8.69213066135946e-01
+Parallel max error: 1.63803427253850e-03
+Generate time: 0.723566 s
+Sequential solution time: 0.080381 s
+Parallel solution time: 3.885425 s
+8 8192 200Sequential max error: 8.72216556016165e-01
+Parallel max error: 1.07745748551471e-176
+Generate time: 0.385021 s
+Sequential solution time: 16.394998 s
+Parallel solution time: 2.108358 s
+16 8192 200Sequential max error: 0.00000000000000e+00
+Parallel max error: 0.00000000000000e+00
+Generate time: 0.235314 s
+Sequential solution time: 16.240412 s
+Parallel solution time: 2.134820 s
+1 8192 500Sequential max error: 0.00000000000000e+00
+Parallel max error: 8.71997521987567e-01
+Generate time: 2.679994 s
+Sequential solution time: 0.080547 s
+Parallel solution time: 0.076044 s
+2 8192 500Sequential max error: 8.58907006436599e-02
+Parallel max error: 9.58395586687884e-01
+Generate time: 1.490829 s
+Sequential solution time: 0.083306 s
+Parallel solution time: 0.041322 s
+4 8192 500Sequential max error: 8.70188254359991e-01
+Parallel max error: 1.63018339471067e-03
+Generate time: 0.816276 s
+Sequential solution time: 0.080489 s
+Parallel solution time: 9.868524 s
+8 8192 500Sequential max error: 8.69996026743415e-01
+Parallel max error: 1.41528786019682e-179
+Generate time: 0.400164 s
+Sequential solution time: 40.062126 s
+Parallel solution time: 6.060495 s
+16 8192 500Sequential max error: 4.49834736656066e+01
+Parallel max error: 4.58541033242421e+01
+Generate time: 0.232895 s
+Sequential solution time: 0.080398 s
+Parallel solution time: 4.123759 s
+BUILDING N-BODY...rm -f nbody
+BUILD ERROR :
+mpiCC -O0 -g -Wformat=0 body.cpp -o nbody -lmpi -lm make: mpiCC: Command not found make: Makefile README.md body.cpp body.h [nbody] Error 127
+1 128 2 128 4 128 8 128 16 128 1 128 2 128 4 128 8 128 16 128 1 128 2 128 4 128 8 128 16 128 1 128 2 128 4 128 8 128 16 128 1 256 2 256 4 256 8 256 16 256 1 256 2 256 4 256 8 256 16 256 1 256 2 256 4 256 8 256 16 256 1 256 2 256 4 256 8 256 16 256 1 512 2 512 4 512 8 512 16 512 1 512 2 512 4 512 8 512 16 512 1 512 2 512 4 512 8 512 16 512 1 512 2 512 4 512 8 512 16 512 1 1024 2 1024 4 1024 8 1024 16 1024 1 1024 2 1024 4 1024 8 1024 16 1024 1 1024 2 1024 4 1024 8 1024 16 1024 1 1024 2 1024 4 1024 8 1024 16 1024 

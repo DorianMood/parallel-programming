@@ -1,4 +1,4 @@
-CC=mpiCC
+CC=mpic++
 CFLAGS= -O0
 LIBS=-lmpi -lm
 
