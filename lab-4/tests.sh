@@ -44,4 +44,3 @@ for nParticle in 128 256 512 1024; do
         done
     done
 done;
-
