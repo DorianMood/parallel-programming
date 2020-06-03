@@ -8,11 +8,6 @@
 
 // #define DEBUG
 
-void Output_batch(equation_data equation)
-{
-    printf("%d\n", equation.N);
-}
-
 // Euclidian length on given vector
 double length(const double *x, const int n)
 {
