@@ -13,3 +13,5 @@ lab-2/ocean-simulation/omp_ocean*
 lab-2/kmeans/.vs/*
 lab-3/CG/cg*
 lab-3/N-body/nbody*
+lab-4/knn-template/knn-exec*
+lab-4/bfs-template/bfs-exec*
