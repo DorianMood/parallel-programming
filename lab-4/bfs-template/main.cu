@@ -117,6 +117,12 @@ void runCudaBfs(int startVertex, Graph &G, std::vector<int> &distance,
        2. Launch the kernel function (Write kernel code in bfsCUDA.cu).
     */
 
+    // put distance and parent to shared memory
+
+    bfs<<<1, G.adjacencyList.size()>>>(G);
+
+    // load distance and parent back
+    
     finalizeCudaBfs(distance, parent, G);
 }
 
