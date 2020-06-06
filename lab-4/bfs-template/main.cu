@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cuda.h>
 #include <string>
+#include <queue>
 
 #include "graph.h"
 #include "bfsCPU.h"
@@ -85,7 +86,7 @@ void checkOutput(std::vector<int> &distance, std::vector<int> &expectedDistance,
 void initializeCudaBfs(int startVertex, std::vector<int> &distance, std::vector<int> &parent, Graph &G) {
     //initialize values
     std::fill(distance.begin(), distance.end(), std::numeric_limits<int>::max());
-    std::fill(parent.begin(), parent.end(), std::numeric_limits<int>::max());
+    std::fill(parent.begin(), parent.end(), -1);
     distance[startVertex] = 0;
     parent[startVertex] = 0;
 
@@ -117,11 +118,31 @@ void runCudaBfs(int startVertex, Graph &G, std::vector<int> &distance,
        2. Launch the kernel function (Write kernel code in bfsCUDA.cu).
     */
 
-    // put distance and parent to shared memory
+    
+    int queue_size = 1;
+    int next_queue_size = 0;
+    int depth = 0;
 
-    bfs<<<1, G.adjacencyList.size()>>>(G);
-
-    // load distance and parent back
+    while (queue_size)
+    {
+        bfs_visit_next<<<1, queue_size>>>(
+            d_adjacencyList,
+            d_edgesOffset,
+            d_edgesSize,
+            d_distance,
+            d_parent,
+            d_currentQueue,
+            d_nextQueue,
+            next_queue_size,
+            d_degrees,
+            incrDegrees
+        );
+        
+        depth++;
+        queue_size = next_queue_size;
+        next_queue_size = 0;
+        std::swap(d_currentQueue, d_nextQueue);
+    }
     
     finalizeCudaBfs(distance, parent, G);
 }
