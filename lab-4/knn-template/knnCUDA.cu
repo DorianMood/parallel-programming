@@ -5,26 +5,7 @@
 #include <time.h>
 #include <cuda_runtime_api.h>
 
-//#include <algorithm>
-#include <map>
-#include <vector>
-
-#include "base.h"
-
-__global__ void cu_knn(
-    float *coords,
-    float *newCoords,
-    int *classes,
-    int numClasses,
-    int numSamples,
-    int numNewSamples,
-    int k)
-{
-    int tid = blockIdx.x * blockDim.x + threadIdx.x;
-
-    // KNN here
-    
-}
+#include "knn.cu"
 
 void check_error(cudaError_t err, const char *msg);
 void knnParallel(float *coords, float *newCoords, int *classes, int numClasses, int numSamples, int numNewSamples, int k);
@@ -48,21 +29,19 @@ void knnParallel(float *coords, float *newCoords, int *classes, int numClasses, 
     check_error(cudaMemcpy(d_classes, classes, totalSamples * sizeof(int), cudaMemcpyHostToDevice), "copy d_classes");
     check_error(cudaMemcpy(d_newCoords, newCoords, numNewSamples * DIMENSION * sizeof(float), cudaMemcpyHostToDevice), "copy d_coordsnew");
 
-    // PUT YOUR PARALLEL CODE HERE
-    /*
-       1. Design the KNN parallel code.
-       1. Specify the sizes of grid and block.
-       2. Launch the kernel function (Write kernel code in knnCUDA.cu).
-    */
+    const int PROBLEM_SIZE = numNewSamples;
+    const int NUM_THREADS = 256;
+    const int NUM_BLOCKS = (int)ceil(PROBLEM_SIZE / NUM_THREADS);
 
-    cu_knn<<<1, numNewSamples>>>(
+    knn<<<NUM_BLOCKS, NUM_THREADS>>>(
         d_coords,
+        numSamples,
         d_newCoords,
+        numNewSamples,
         d_classes,
         numClasses,
-        numSamples,
-        numNewSamples,
-        k);
+        k
+    );
 
     cudaDeviceSynchronize();
     // download device -> host

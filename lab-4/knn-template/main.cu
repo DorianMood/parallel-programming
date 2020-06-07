@@ -4,6 +4,7 @@
 #include <string.h>
 #include <time.h>
 #include <cuda_runtime_api.h>
+#include <cuda.h>
 
 #include "base.h"
 #include "knnCPU.h"

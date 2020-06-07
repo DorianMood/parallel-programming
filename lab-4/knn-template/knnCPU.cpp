@@ -7,7 +7,6 @@
 #include <vector>
 #include <algorithm>
 #include <map>
-//#include <pair>
 
 #include "base.h"
 
@@ -34,11 +33,10 @@ void knnSerial(float* coords, float* newCoords, int* classes, int numClasses, in
     // Iterate over points to classify
     for (int i = 0; i < numNewSamples; i++)
     {
-        std::vector<double> distances;
         // Check all points
         for (int j = 0; j < numSamples; j++)
         {
-            points[j].first = distance(&coords[DIMENSION * numSamples], &newCoords[DIMENSION * numNewSamples]);
+            points[j].first = distance(&coords[DIMENSION * j], &newCoords[DIMENSION * i]);
         }
         std::sort(points, points + numSamples);
         std::map<int, int> frequencies;
