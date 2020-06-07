@@ -5,14 +5,36 @@
 #include <time.h>
 #include <cuda_runtime_api.h>
 
-void check_error(cudaError_t err, const char *msg);
-void knnParallel(float* coords, float* newCoords, int* classes, int numClasses, int numSamples, int numNewSamples, int k);
+//#include <algorithm>
+#include <map>
+#include <vector>
 
-void knnParallel(float* coords, float* newCoords, int* classes, int numClasses, int numSamples, int numNewSamples, int k) {
+#include "base.h"
+
+__global__ void cu_knn(
+    float *coords,
+    float *newCoords,
+    int *classes,
+    int numClasses,
+    int numSamples,
+    int numNewSamples,
+    int k)
+{
+    int tid = blockIdx.x * blockDim.x + threadIdx.x;
+
+    // KNN here
+    
+}
+
+void check_error(cudaError_t err, const char *msg);
+void knnParallel(float *coords, float *newCoords, int *classes, int numClasses, int numSamples, int numNewSamples, int k);
+
+void knnParallel(float *coords, float *newCoords, int *classes, int numClasses, int numSamples, int numNewSamples, int k)
+{
     //*** Device-variables-declaration ***
-    float* d_coords;
-    float* d_newCoords;
-    int* d_classes;
+    float *d_coords;
+    float *d_newCoords;
+    int *d_classes;
 
     int totalSamples = numSamples + numNewSamples;
 
@@ -32,7 +54,16 @@ void knnParallel(float* coords, float* newCoords, int* classes, int numClasses, 
        1. Specify the sizes of grid and block.
        2. Launch the kernel function (Write kernel code in knnCUDA.cu).
     */
-   
+
+    cu_knn<<<1, numNewSamples>>>(
+        d_coords,
+        d_newCoords,
+        d_classes,
+        numClasses,
+        numSamples,
+        numNewSamples,
+        k);
+
     cudaDeviceSynchronize();
     // download device -> host
     check_error(cudaMemcpy(coords, d_coords, DIMENSION * totalSamples * sizeof(float), cudaMemcpyDeviceToHost), "download coords");
@@ -41,7 +72,7 @@ void knnParallel(float* coords, float* newCoords, int* classes, int numClasses, 
 
 void check_error(cudaError_t err, const char *msg)
 {
-    if (err != cudaSuccess) 
+    if (err != cudaSuccess)
     {
         fprintf(stderr, "%s : error %d (%s)\n", msg, err, cudaGetErrorString(err));
         exit(err);
