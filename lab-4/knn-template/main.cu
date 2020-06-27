@@ -34,6 +34,10 @@ void checkOutput(int* classes, int* gpuClasses, int numClasses, int totalSamples
         }
     }
 
+    for (int i = 0; i < totalSamples; i++) {
+        printf("%d : [%d]\t[%d]\n", i, classes[i], gpuClasses[i]);
+    }
+    
     for (int j = 0; j < numClasses; j++) {
         if (numCpuClasses[j] != numGpuClasses[j]) {
             printf("Wrong output!\n");
@@ -55,7 +59,7 @@ void knnInit(float* coords, float* newCoords, int* classes, int numSamples, int 
 void genRandCoords(float* x, int numSamples) {
     for (int i = 0; i < numSamples; i++)
         for (int j = 0; j < DIMENSION; j++)
-            x[i * DIMENSION + j] = (float)rand()/(float)(RAND_MAX/POINTS_MAX) + (float)(POINTS_MIN);
+            x[i * DIMENSION + j] = (float)rand() / RAND_MAX * (POINTS_MAX - POINTS_MIN) + POINTS_MIN;
 }
 
 int main(int argc, char** argv) {
@@ -83,7 +87,7 @@ int main(int argc, char** argv) {
     float* gpuNewCoords = (float*)malloc(sizeof(float) * numNewSamples * DIMENSION);
     float* gpuCoords = (float*)malloc(sizeof(float) * numTotalSamples * DIMENSION);
 
-    srand(12345);
+    srand(time(NULL));
 
     printf("Starting initialization.\n");
     startTimer(&timer);
@@ -118,6 +122,3 @@ int main(int argc, char** argv) {
 
     return 0;
 }
-
-
-

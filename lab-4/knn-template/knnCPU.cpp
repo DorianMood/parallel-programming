@@ -10,11 +10,12 @@
 
 #include "base.h"
 
-double distance(float* first, float* second)
+float distance(float* first, float* second)
 {
-    double sum = 0;
+    float sum = 0;
     for (int i = 0; i < DIMENSION; i++)
     {
+        printf("{[%f] - [%f]} ", first[i], second[i]);
         sum += pow(first[i] - second[i], 2);
     }
     return sqrt(sum);
@@ -26,7 +27,6 @@ void knnSerial(float* coords, float* newCoords, int* classes, int numClasses, in
     std::pair<float, int> points[numSamples];
     for (int i = 0; i < numSamples; i++)
     {
-        //points[i].first = coords[i];
         points[i].second = classes[i];
     }
 
@@ -36,7 +36,9 @@ void knnSerial(float* coords, float* newCoords, int* classes, int numClasses, in
         // Check all points
         for (int j = 0; j < numSamples; j++)
         {
-            points[j].first = distance(&coords[DIMENSION * j], &newCoords[DIMENSION * i]);
+            float dist = distance(&coords[DIMENSION * j], &newCoords[DIMENSION * i]);
+            printf("%f\n", dist);
+            points[j].first = dist;
         }
         std::sort(points, points + numSamples);
         std::map<int, int> frequencies;
@@ -45,7 +47,7 @@ void knnSerial(float* coords, float* newCoords, int* classes, int numClasses, in
             frequencies[points[numSamples - j - 1].second]++;
         }
         int m = 0;
-        int currentClass = -1;
+        int currentClass = classes[0];
         for (auto freq : frequencies)
         {
             if (freq.second > m)

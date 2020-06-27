@@ -7,6 +7,8 @@
 #include <iostream>
 
 #include <thrust/device_vector.h>
+#include <thrust/device_ptr.h>
+#include <thrust/sort.h>
 
 #include "knn.cu"
 
@@ -41,18 +43,26 @@ void knnParallel(float *coords, float *newCoords, int *classes, int numClasses, 
     const int NUM_BLOCKS = (int)ceil(PROBLEM_SIZE / NUM_THREADS);
 
     // Calculate distances
-    // For performance reasons we can compute just x^2 + y^2 (anyway we are looking for minimum)
     cuda_compute_distance<<<NUM_BLOCKS, NUM_THREADS>>>(d_coords, numSamples, d_newCoords, numNewSamples, d_distances);
 
-    cuda_get_classes<<<NUM_BLOCKS, NUM_THREADS>>>(d_distances, numSamples, numNewSamples, d_classes);
+    cudaDeviceSynchronize();
+    float *distances = new float[numNewSamples * numSamples];
+    check_error(cudaMemcpy(distances, d_distances, numNewSamples * numSamples * sizeof(float), cudaMemcpyDeviceToHost), "download distances");
+    cudaDeviceSynchronize();
+    for (int i = 0; i < numSamples * numNewSamples; i++)
+    {
+        printf("%f\t", distances[i]);
+    }
+    cudaDeviceSynchronize();
 
-    // Sort classes by distances
-
-    // Classes and distances vectors allocation
-    // thrust::device_vector<int> t_classes(12);
-    // thrust::device_vector<float> t_distances(d_distances, d_distances + numNewSamples * numSamples);
-
-    // Copy data to these vectors
+    modified_insertion_sort<<<NUM_BLOCKS, NUM_THREADS>>>(
+        d_distances,
+        d_classes,
+        numSamples,
+        numNewSamples,
+        k,
+        numClasses
+    );
 
     cudaDeviceSynchronize();
     // download device -> host
