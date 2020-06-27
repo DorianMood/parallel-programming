@@ -21,16 +21,14 @@
      * @param size_q size of vector query
      * @param distance output vector of size_r * size_q
      * */
-    __global__ void cuda_compute_distance(float *ref, int size_r,
-                                          float *query, int size_q,
+    __global__ void cuda_compute_distance(float *coords, int size_r,
+                                          float *newCoords, int size_q,
                                           float *distance)
     {
         // Gloabal thread ID
         int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
         int query_id = tid;
-
-        printf(" %d ", tid);
 
         if (tid < size_q)
         {
@@ -40,10 +38,9 @@
                 float sum = 0.0;
                 for (int j = 0; j < DIMENSION; j++)
                 {
-                    sum += (ref[DIMENSION * i + j] - query[tid * DIMENSION + j], 2) * (ref[DIMENSION * i + j] - query[tid * DIMENSION + j], 2);
+                    sum += (coords[DIMENSION * i + j] - newCoords[tid * DIMENSION + j]) * (coords[DIMENSION * i + j] - newCoords[tid * DIMENSION + j]);
                 }
-                distance[tid * size_r + i] = sum;
-                distance[tid * size_r + i] = 10;
+                distance[tid * size_r + i] = sqrt(sum);
             }
         }
     }

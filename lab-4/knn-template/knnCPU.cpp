@@ -15,7 +15,6 @@ float distance(float* first, float* second)
     float sum = 0;
     for (int i = 0; i < DIMENSION; i++)
     {
-        printf("{[%f] - [%f]} ", first[i], second[i]);
         sum += pow(first[i] - second[i], 2);
     }
     return sqrt(sum);
@@ -37,7 +36,6 @@ void knnSerial(float* coords, float* newCoords, int* classes, int numClasses, in
         for (int j = 0; j < numSamples; j++)
         {
             float dist = distance(&coords[DIMENSION * j], &newCoords[DIMENSION * i]);
-            printf("%f\n", dist);
             points[j].first = dist;
         }
         std::sort(points, points + numSamples);

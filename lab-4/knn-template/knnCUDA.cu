@@ -40,19 +40,10 @@ void knnParallel(float *coords, float *newCoords, int *classes, int numClasses, 
 
     const int PROBLEM_SIZE = numNewSamples;
     const int NUM_THREADS = 256;
-    const int NUM_BLOCKS = (int)ceil(PROBLEM_SIZE / NUM_THREADS);
+    const int NUM_BLOCKS = ceil((float)PROBLEM_SIZE / NUM_THREADS);
 
-    // Calculate distances
     cuda_compute_distance<<<NUM_BLOCKS, NUM_THREADS>>>(d_coords, numSamples, d_newCoords, numNewSamples, d_distances);
 
-    cudaDeviceSynchronize();
-    float *distances = new float[numNewSamples * numSamples];
-    check_error(cudaMemcpy(distances, d_distances, numNewSamples * numSamples * sizeof(float), cudaMemcpyDeviceToHost), "download distances");
-    cudaDeviceSynchronize();
-    for (int i = 0; i < numSamples * numNewSamples; i++)
-    {
-        printf("%f\t", distances[i]);
-    }
     cudaDeviceSynchronize();
 
     modified_insertion_sort<<<NUM_BLOCKS, NUM_THREADS>>>(
