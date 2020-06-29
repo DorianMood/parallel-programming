@@ -78,51 +78,61 @@
         if (xIndex < size_q)
         {
             // Pointer shift
-            float * p_dist  = dist  + xIndex * size_r;
-
+            float *p_dist = dist  + xIndex * size_r;
+        
             // Initialise the top classes array
-            int *top_classes = new int[k];
-            for (int i = 0; i < k; i++)
-                top_classes[i] = classes[size_r + i];
+            int *top_classes = new int[size_r];
+            for (int i = 0; i < size_r; i++)
+                top_classes[i] = classes[i];
+            
+            for (int i = 0; i < size_r; i++)
+            {
+                printf("{[%d] %f %d} ", xIndex, p_dist[i], top_classes[i]);
+            }
 
             // Iterate through all points
-            for (int i = 1; i < size_r; ++i)
-            {
-                // Store current distance and associated index
-                float curr_dist = p_dist[i];
-                int curr_class = classes[i];
+            for (int i = 0; i < size_r; ++i)
+            {                
+                // Starting from  current index
+                int j = i;
+                
+                // Remember class and distance
+                float tmp_d = p_dist[i];
+                int tmp_c = top_classes[i];
 
-                // Skip the current value if its index is >= k and if it's higher the k-th already sorted mallest value
-                if (curr_dist >= p_dist[(k - 1)])
-                    continue;
-
-                // Shift values (and indexes) higher that the current distance to the right
-                int j = min(i, k - 1);
-                while (j > 0 && p_dist[j - 1] > curr_dist)
+                // While have left and left > right
+                while ((j > 0) && (p_dist[j - 1] > tmp_d))
                 {
+                    // Shift left -> right
                     p_dist[j] = p_dist[j - 1];
                     top_classes[j] = top_classes[j - 1];
                     --j;
                 }
-
+                
                 // Write the current distance and index at their position
-                p_dist[j]   = curr_dist;
-                top_classes[j] = curr_class; 
+                p_dist[j] = tmp_d;
+                top_classes[j] = tmp_c;
+            }
+
+            printf("\n");
+            for (int i = 0; i < size_r; i++)
+            {
+                printf("{(%d) %f %d} ", xIndex, p_dist[i], top_classes[i]);
             }
 
             // Get class for current point accourding to the top classes
             // Implement majority vote
             classes[size_r + xIndex] = top_classes[0];
-            int classes_sum = 0, classes_max = 0;
-            for (int i = 0; i < num_classes; i++)
+            int classes_sum = 0, classes_max = 1;
+            for (int _class = 0; _class < num_classes; _class++)
             {
                 classes_sum = 0;
                 for (int j = 0; j < k; j++)
-                    if (i == top_classes[j])
+                    if (_class == top_classes[j])
                         classes_sum += 1;
                 if (classes_sum > classes_max)
                 {
-                    classes[size_r + xIndex] = i;
+                    classes[size_r + xIndex] = _class;
                     classes_max = classes_sum;
                 }
             }

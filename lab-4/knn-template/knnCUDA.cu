@@ -12,6 +12,8 @@
 
 #include "knn.cu"
 
+#include "knnCPU.h"
+
 #define DEBUG 1
 
 void check_error(cudaError_t err, const char *msg);
@@ -42,6 +44,7 @@ void knnParallel(float *coords, float *newCoords, int *classes, int numClasses, 
     const int NUM_THREADS = 256;
     const int NUM_BLOCKS = ceil((float)PROBLEM_SIZE / NUM_THREADS);
 
+    // Calculate distances
     cuda_compute_distance<<<NUM_BLOCKS, NUM_THREADS>>>(d_coords, numSamples, d_newCoords, numNewSamples, d_distances);
 
     cudaDeviceSynchronize();

@@ -24,14 +24,15 @@ void knnSerial(float* coords, float* newCoords, int* classes, int numClasses, in
 {
     // Connect distances to classes for convinience
     std::pair<float, int> points[numSamples];
-    for (int i = 0; i < numSamples; i++)
-    {
-        points[i].second = classes[i];
-    }
 
     // Iterate over points to classify
     for (int i = 0; i < numNewSamples; i++)
     {
+        for (int j = 0; j < numSamples; j++)
+        {
+            points[j].second = classes[j];
+        }
+
         // Check all points
         for (int j = 0; j < numSamples; j++)
         {
@@ -39,21 +40,30 @@ void knnSerial(float* coords, float* newCoords, int* classes, int numClasses, in
             points[j].first = dist;
         }
         std::sort(points, points + numSamples);
+
+        printf("\n");
+        for (int j = 0; j < numSamples; j++)
+        {
+            printf("[distance: %f class: %d]\n", points[j].first, points[j].second);
+        }
+
         std::map<int, int> frequencies;
         for (int j = 0; j < k; j++)
         {
-            frequencies[points[numSamples - j - 1].second]++;
+            frequencies[points[j].second]++;
         }
-        int m = 0;
-        int currentClass = classes[0];
+        int m = 1;
+        int currentClass = points[0].second;
         for (auto freq : frequencies)
         {
+            printf(" {class: %d frequency: %d} ", freq.first, freq.second);
             if (freq.second > m)
             {
                 m = freq.second;
                 currentClass = freq.first;
             }
         }
+        printf("\n");
         classes[numSamples + i] = currentClass;
     }
 }
