@@ -33,10 +33,6 @@ void checkOutput(int* classes, int* gpuClasses, int numClasses, int totalSamples
 
         }
     }
-
-    for (int i = 0; i < totalSamples; i++) {
-        printf("%d : [%d]\t[%d]\n", i, classes[i], gpuClasses[i]);
-    }
     
     for (int j = 0; j < numClasses; j++) {
         if (numCpuClasses[j] != numGpuClasses[j]) {

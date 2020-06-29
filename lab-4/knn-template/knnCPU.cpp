@@ -41,12 +41,6 @@ void knnSerial(float* coords, float* newCoords, int* classes, int numClasses, in
         }
         std::sort(points, points + numSamples);
 
-        printf("\n");
-        for (int j = 0; j < numSamples; j++)
-        {
-            printf("[distance: %f class: %d]\n", points[j].first, points[j].second);
-        }
-
         std::map<int, int> frequencies;
         for (int j = 0; j < k; j++)
         {
@@ -56,14 +50,12 @@ void knnSerial(float* coords, float* newCoords, int* classes, int numClasses, in
         int currentClass = points[0].second;
         for (auto freq : frequencies)
         {
-            printf(" {class: %d frequency: %d} ", freq.first, freq.second);
             if (freq.second > m)
             {
                 m = freq.second;
                 currentClass = freq.first;
             }
         }
-        printf("\n");
         classes[numSamples + i] = currentClass;
     }
 }

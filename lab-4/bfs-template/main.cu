@@ -2,6 +2,7 @@
 #include <cuda.h>
 #include <string>
 #include <queue>
+#include <math.h>
 
 #include "graph.h"
 #include "bfsCPU.h"
@@ -118,14 +119,17 @@ void runCudaBfs(int startVertex, Graph &G, std::vector<int> &distance,
        2. Launch the kernel function (Write kernel code in bfsCUDA.cu).
     */
 
+    const int NUM_THREADS = 256;
     
     int queue_size = 1;
-    int next_queue_size = 0;
-    int depth = 0;
+    int* next_queue_size;
+    checkError(cudaMalloc(&next_queue_size, sizeof(int)), "cannot allocate next_queue_size");
+    checkError(cudaMemset(next_queue_size, 0, sizeof(int)), "cannot set 0");;
+    int level = 0;
 
     while (queue_size)
     {
-        bfs_visit_next<<<1, queue_size>>>(
+        bfs_visit_next<<<ceil((float)queue_size / NUM_THREADS), NUM_THREADS>>>(
             d_adjacencyList,
             d_edgesOffset,
             d_edgesSize,
@@ -133,14 +137,29 @@ void runCudaBfs(int startVertex, Graph &G, std::vector<int> &distance,
             d_parent,
             d_currentQueue,
             d_nextQueue,
+            queue_size,
             next_queue_size,
             d_degrees,
             incrDegrees
-        );
-        
-        depth++;
-        queue_size = next_queue_size;
-        next_queue_size = 0;
+        );  
+        cudaDeviceSynchronize();
+
+        level++;
+
+        checkError(cudaMemcpy(&queue_size, next_queue_size, sizeof(int), cudaMemcpyDeviceToHost), "cannot copy next queue");
+        checkError(cudaMemset(next_queue_size, 0, sizeof(int)), "cannot set next queue 0");
+
+        // printf("Queue size: %d\n", queue_size);
+        // for (int i = 0; i < G.numVertices; i++)
+        // {
+        //     printf("%d : ", i);
+        //     for (int j = G.edgesOffset[i]; j < G.edgesOffset[i] + G.edgesSize[i]; j++)
+        //     {
+        //         printf("%d ", G.adjacencyList[j]);
+        //     }
+        //     printf("\n");
+        // }
+
         std::swap(d_currentQueue, d_nextQueue);
     }
     

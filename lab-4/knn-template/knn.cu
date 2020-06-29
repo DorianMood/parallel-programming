@@ -84,11 +84,6 @@
             int *top_classes = new int[size_r];
             for (int i = 0; i < size_r; i++)
                 top_classes[i] = classes[i];
-            
-            for (int i = 0; i < size_r; i++)
-            {
-                printf("{[%d] %f %d} ", xIndex, p_dist[i], top_classes[i]);
-            }
 
             // Iterate through all points
             for (int i = 0; i < size_r; ++i)
@@ -112,12 +107,6 @@
                 // Write the current distance and index at their position
                 p_dist[j] = tmp_d;
                 top_classes[j] = tmp_c;
-            }
-
-            printf("\n");
-            for (int i = 0; i < size_r; i++)
-            {
-                printf("{(%d) %f %d} ", xIndex, p_dist[i], top_classes[i]);
             }
 
             // Get class for current point accourding to the top classes

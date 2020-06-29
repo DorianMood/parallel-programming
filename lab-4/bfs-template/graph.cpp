@@ -10,12 +10,12 @@ void readGraph(Graph &G, int argc, char **argv) {
     if (fromStdin) {
         scanf("%d %d", &n, &m);
     } else {
-        srand(12345);
+        srand(time(NULL));
         n = atoi(argv[2]);
         m = atoi(argv[3]) / 2;
     }
 
-    std::vector<std::vector<int> > adjecancyLists(n);
+    std::vector<std::vector<int>> adjecancyLists(n);
     for (int i = 0; i < m; i++) {
         int u, v;
         if (fromStdin) {

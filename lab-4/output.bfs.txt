@@ -1,0 +1,111 @@
+BUILDING BFS...rm -f bfs-exec
+
+BUILDING SUCCESSFUL.
+Number of vertices 100000
+Number of edges 1000000
+
+Starting sequential bfs.
+Elapsed time: 6416515 ns.
+
+setting device 0 with name Tesla V100-PCIE-32GB
+Starting parallel bfs.
+Elapsed time: 753408 ns.
+
+Output OK!
+
+Number of vertices 100000
+Number of edges 10000000
+
+Starting sequential bfs.
+Elapsed time: 28040240 ns.
+
+setting device 0 with name Tesla V100-PCIE-32GB
+Starting parallel bfs.
+Elapsed time: 1903798 ns.
+
+Output OK!
+
+Number of vertices 100000
+Number of edges 100000000
+
+Starting sequential bfs.
+Elapsed time: 161910935 ns.
+
+setting device 0 with name Tesla V100-PCIE-32GB
+Starting parallel bfs.
+Elapsed time: 16339471 ns.
+
+Output OK!
+
+Number of vertices 1000000
+Number of edges 1000000
+
+Starting sequential bfs.
+Elapsed time: 4368 ns.
+
+setting device 0 with name Tesla V100-PCIE-32GB
+Starting parallel bfs.
+Elapsed time: 3191093 ns.
+
+Output OK!
+
+Number of vertices 1000000
+Number of edges 10000000
+
+Starting sequential bfs.
+Elapsed time: 102290192 ns.
+
+setting device 0 with name Tesla V100-PCIE-32GB
+Starting parallel bfs.
+Elapsed time: 12475924 ns.
+
+Output OK!
+
+Number of vertices 1000000
+Number of edges 100000000
+
+Starting sequential bfs.
+Elapsed time: 334969600 ns.
+
+setting device 0 with name Tesla V100-PCIE-32GB
+Starting parallel bfs.
+Elapsed time: 23523419 ns.
+
+Output OK!
+
+Number of vertices 10000000
+Number of edges 1000000
+
+Starting sequential bfs.
+Elapsed time: 3051 ns.
+
+setting device 0 with name Tesla V100-PCIE-32GB
+Starting parallel bfs.
+Elapsed time: 34262160 ns.
+
+Output OK!
+
+Number of vertices 10000000
+Number of edges 10000000
+
+Starting sequential bfs.
+Elapsed time: 9965151 ns.
+
+setting device 0 with name Tesla V100-PCIE-32GB
+Starting parallel bfs.
+Elapsed time: 41670816 ns.
+
+Output OK!
+
+Number of vertices 10000000
+Number of edges 100000000
+
+Starting sequential bfs.
+Elapsed time: 2205817212 ns.
+
+setting device 0 with name Tesla V100-PCIE-32GB
+Starting parallel bfs.
+Elapsed time: 79844670 ns.
+
+Output OK!
+

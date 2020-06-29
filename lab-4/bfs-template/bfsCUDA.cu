@@ -11,27 +11,29 @@ extern "C" {
         int* parent,
         int* currentQueue,
         int* nextQueue,
-        int nextQueueSize,
+        int queueSize,
+        int* nextQueueSize,
         int* degrees,
         int* incrDegrees
     )
     {
         int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
-        int v = currentQueue[tid];
-        for (int i = edgesOffset[v]; i < edgesOffset[v] + edgesSize[v]; i++)
+        if (tid < queueSize)
         {
-            int u = adjacencyList[i];
-            
-            if (parent[u] == -1) // Not visited
-            { // Visit
-                parent[u] = v;
-                distance[u] = distance[v] + 1;
-
-                nextQueue[nextQueueSize] = u;
-                nextQueueSize++;
+            int v = currentQueue[tid];
+            for (int i = edgesOffset[v]; i < edgesOffset[v] + edgesSize[v]; i++)
+            {
+                int u = adjacencyList[i];
+                if (parent[u] == -1) // Not visited
+                { // Visit
+                    parent[u] = v;
+                    distance[u] = distance[v] + 1;
+    
+                    int pos = atomicAdd(nextQueueSize, 1);
+                    nextQueue[pos] = u;
+                }
             }
         }
-    __syncthreads();
     }
 }
